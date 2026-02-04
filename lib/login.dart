@@ -26,29 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     const orange = Color(0xFFF37927);
     const orangeShadow = Color.fromARGB(255, 30, 26, 21);
     const textGrey = Color(0xFFFCFBF0);
-    //primary colors
-    //const vividtangelo = Color(0xFFF37927);
-    //const royalorange = Color(0xFFF89F42);
-    //const floralwhite = Color(0xFFFCFBF0);
-    //const espressobrown = Color(0xFF282224);
-    //secondary colors
-    //const mustardyellow = Color(0xFFFFB81C);
-    //const earthybrown = Color(0xFF5D3923);
-    //const lightsand = Color(0xFFF1E2C5);
-    //const lightgray = Color(0xFFF1EEE7);
-    //const forestgreen = Color(0xFF006644);
-    //const turquoiseblue = Color(0xFF00788C);
-    //const mossgreen = Color(0xFF718D2A);
-    //const steelblue = Color(0xFF46505A);
-    //const mistyblue = Color(0xFF9BB7D4);
-    //const mediumcarmine = Color(0xFFB04B25);
-    //const peachorange = Color(0xFFFCCD9D);
-    //const slateblue = Color(0xFF3A75C4);
-    //const olivedrab = Color(0xFF858F1F);
-    //const terrared = Color(0xFFE87552);
-    //const deepred = Color(0xFFB5121B);
-    //const deepteal = Color(0xFF007577);
-    
+     
 
     return Scaffold(
       backgroundColor: bg,

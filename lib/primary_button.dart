@@ -1,3 +1,4 @@
+import 'package:eleuterra_app/theme/app_text.dart';
 import 'package:flutter/material.dart';
 
 /// Botón con efecto “capa/sombra” de otro color (como en tu imagen)
@@ -115,11 +116,7 @@ class SocialButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             text,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
+            style: AppTextStyles.title,
           ),
         ),
       ),
