@@ -7,5 +7,9 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
-
+  static const subtitle = TextStyle(
+    fontFamily:'CreatoDisplay',
+    fontSize: 32*0.74,
+    fontWeight: FontWeight.bold,
+  );
 } 

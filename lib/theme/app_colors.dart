@@ -2,6 +2,7 @@
 
  class AppColors {
    //primary colors
+    static const charcoal = Color(0xFF171717);
     static const vividtangelo = Color(0xFFF37927);
     static const royalorange = Color(0xFFF89F42);
     static const floralwhite = Color(0xFFFCFBF0);

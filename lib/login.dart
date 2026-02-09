@@ -1,6 +1,8 @@
 import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/textfield_rounded.dart';
+import 'package:eleuterra_app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,14 +24,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    const bg = Color(0xFF171717); 
-    const orange = Color(0xFFF37927);
-    const orangeShadow = Color.fromARGB(255, 30, 26, 21);
-    const textGrey = Color(0xFFFCFBF0);
-     
+    const textGrey = Color(0xFFFCFBF0); 
 
     return Scaffold(
-      backgroundColor: bg,
+      backgroundColor: AppColors.charcoal,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
@@ -47,8 +45,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
 
               // LOGO (imagen)
-              Image.asset(
-                'assets/images/eleutera_logo.png',
+              SvgPicture.asset(
+                'assets/images/Eleuterra-isotipo-naranja.svg',
                 height: 120,
                 fit: BoxFit.contain,
               ),
@@ -69,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 hint: '@eleuterra',
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                borderColor: orange,
+                borderColor: AppColors.vividtangelo,
               ),
 
               const SizedBox(height: 16),
@@ -80,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 hint: '**************',
                 controller: _passController,
                 obscureText: true,
-                borderColor: orange,
+                borderColor: AppColors.vividtangelo,
               ),
 
               const SizedBox(height: 18),
@@ -91,9 +89,10 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: () {},
                 width: 300,
                 height: 40,
-                frontColor: orange,
-                shadowColor: orangeShadow,
-                textColor: Colors.white,
+                frontColor: AppColors.mustardyellow,
+                shadowColor: AppColors.vividtangelo,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.royalorange,
               ),
 
               const SizedBox(height: 12),
@@ -101,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 'Or',
                 style: TextStyle(
-                  color: textGrey,
+                  color: AppColors.floralwhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -111,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
 
               const Text(
                 'Create your account',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: AppColors.floralwhite),
                 textAlign: TextAlign.center,
               ),
 
@@ -125,70 +124,45 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 width: 190,
                 height: 44,
-                frontColor: orange,
-                shadowColor: orangeShadow,
-                textColor: Colors.white,
+                frontColor: AppColors.mustardyellow,
+                shadowColor: AppColors.vividtangelo,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.royalorange,
               ),
 
               const SizedBox(height: 14),
 
               // Facebook button
-              SocialButton(
-                text: 'facebook',
-                onTap: () {},
-                background: const Color(0xFF2D62D3),
-                textColor: Colors.white,
+              GradientShadowButton(
+                text: 'Start',
+                onTap: () {
+                },
+                width: 190,
+                height: 44,
+                frontColor: AppColors.slateblue,
+                shadowColor: AppColors.steelblue,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.mistyblue,
               ),
 
               const SizedBox(height: 10),
 
               // Google button
-              SocialButton(
-                text: 'Google',
-                onTap: () {},
-                background: const Color(0xFFF2F2F2),
-                textColor: Colors.black87,
-                border: const BorderSide(color: Color(0xFFE0E0E0), width: 1),
+              GradientShadowButton(
+                text: 'Start',
+                onTap: () {
+                },
+                width: 190,
+                height: 44,
+                frontColor: AppColors.floralwhite,
+                shadowColor: Color(0xff4d4d4d),
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.lightsand,
               ),
+
 
               const SizedBox(height: 20),
 
-              GestureDetector(
-  onTap: () {
-
-  },
-  child: Container(
-    padding: const EdgeInsets.all(4),
-    decoration: BoxDecoration(
-      color: orange, // capa externa
-      borderRadius: BorderRadius.circular(40),
-    ),
-    child: Container(
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        color: Color(0xFFFDB71D), // capa intermedia
-        borderRadius: BorderRadius.circular(40),
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 14,
-          horizontal: 32,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.orange.shade400, // centro
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: const Text(
-          'Program a New Route',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ),
-  ),
-),
             ],
           ),
         ),
