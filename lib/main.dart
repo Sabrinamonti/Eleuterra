@@ -1,3 +1,4 @@
+import 'package:eleuterra_app/createaccount.dart';
 import 'package:eleuterra_app/login.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF0E0E0E),
         fontFamily: null,
       ),
-      home: const LoginPage(),
+      home: const Createaccount(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:eleuterra_app/theme/app_text.dart';
 import 'package:flutter/material.dart';
 
-/// Botón con efecto “capa/sombra” de otro color (como en tu imagen)
+/// Botón con efecto “capa/sombra” de otro color
 class GradientShadowButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
@@ -70,10 +70,9 @@ class GradientShadowButton extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   text,
-                  style: TextStyle(
+                  style: AppTextStyles.title.copyWith(
                     color: textColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 32,
                   ),
                 ),
               ),
@@ -84,3 +83,15 @@ class GradientShadowButton extends StatelessWidget {
     );
   }
 }
+
+
+                //child: Text(
+                  //text,
+                  //style: TextStyle(
+                    //color: textColor,
+                    //fontSize: 16,
+                    //fontWeight: FontWeight.w800,
+                  //),
+                //),
+
+                //este es el antiguo
