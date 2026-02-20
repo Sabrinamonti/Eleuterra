@@ -1,3 +1,4 @@
+import 'package:eleuterra_app/createaccount.dart';
 import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/textfield_rounded.dart';
 import 'package:eleuterra_app/theme/app_colors.dart';
@@ -86,7 +87,14 @@ class _LoginPageState extends State<LoginPage> {
               // Continue button (con “doble capa”/sombra de color)
               GradientShadowButton(
                 text: 'Continue',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Createaccount(),
+                    ),
+                  );
+                },
                 width: 300,
                 height: 40,
                 frontColor: AppColors.mustardyellow,

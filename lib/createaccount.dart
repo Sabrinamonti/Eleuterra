@@ -165,7 +165,7 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 20),
 
-              _Label(text: 'E-mail'),
+              _Label(text: 'E-mail'),      // Agregar funcion para que si se presiona el boton y no hay texto error
               const SizedBox(height: 2),
               RoundedInput(
                 hint: 'eleuterra@mail.com',
@@ -176,7 +176,7 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 16),
 
-              _Label(text: 'Phone number'),
+              _Label(text: 'Phone number'),  //same
               const SizedBox(height: 2),
               RoundedInput(
                 hint: '+000000000000',
@@ -187,7 +187,7 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 16),
 
-              _Label(text: 'Username'),
+              _Label(text: 'Username'),      //same 
               const SizedBox(height: 2),
               RoundedInput(
                 hint: '@username',
@@ -198,7 +198,7 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 16),
 
-              _Label(text: 'Password'),
+              _Label(text: 'Password'),      //same + ojito
               const SizedBox(height: 2),
               RoundedInput(
                 hint: '**************',
@@ -209,7 +209,7 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 16),
 
-              _Label(text: 'Repeat password'),
+              _Label(text: 'Repeat password'),      //same + ojito
               const SizedBox(height: 2),
               RoundedInput(
                 hint: '**************',
