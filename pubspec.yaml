@@ -85,7 +85,7 @@ flutter:
         - asset: assets/fonts/CreatoDisplay-Medium.otf
           weight: 500
         - asset: assets/fonts/CreatoDisplay-Bold.otf
-          weight: 700
+          weight: 600
         - asset: assets/fonts/CreatoDisplay-ExtraBold.otf
           weight: 800
         - asset: assets/fonts/CreatoDisplay-Black.otf

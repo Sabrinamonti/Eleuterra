@@ -15,7 +15,7 @@ class AppTextStyles {
 
     static const italic = TextStyle(
     fontFamily:'CreatoDisplay',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
     fontStyle: FontStyle.italic
   );

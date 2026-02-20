@@ -57,25 +57,33 @@ class GradientShadowButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(height*0.76),
               onTap: onTap,
               child: Container(
-                width: width,
-                height: height,
-                decoration: BoxDecoration(
-                  color: frontColor,
-                  borderRadius: BorderRadius.circular(height*0.76),
-                  border: Border.all(
-                    color: borderColor,
-                    width: height*0.11,
-                  ),
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                color: frontColor,
+                borderRadius: BorderRadius.circular(height * 0.76),
+                border: Border.all(
+                  color: borderColor,
+                  width: height * 0.11,
                 ),
-                alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: AppTextStyles.title.copyWith(
-                    color: textColor,
-                    fontSize: 32,
+              ),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: height * 0.05, // small visual correction
+                  ),
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.title.copyWith(
+                      color: textColor,
+                      fontSize: height * 0.7, // make font responsive to button height
+                      height: 1,
+                    ),
                   ),
                 ),
               ),
+            ),
             ),
           ),
         ],
@@ -85,13 +93,4 @@ class GradientShadowButton extends StatelessWidget {
 }
 
 
-                //child: Text(
-                  //text,
-                  //style: TextStyle(
-                    //color: textColor,
-                    //fontSize: 16,
-                    //fontWeight: FontWeight.w800,
-                  //),
-                //),
-
-                //este es el antiguo
+                

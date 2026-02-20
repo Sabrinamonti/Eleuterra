@@ -158,16 +158,15 @@ class _CreateaccountState extends State<Createaccount> {
 
               const SizedBox(height: 12),
 
-              const Text(
+              Text(
                 'Create your account', //arreglado
                 style: AppTextStyles.title
-                //textAlign: TextAlign.center,  //revisar, me sale error
               ),
 
               const SizedBox(height: 20),
 
               _Label(text: 'E-mail'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               RoundedInput(
                 hint: 'eleuterra@mail.com',
                 controller: _emailController,
@@ -178,7 +177,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 16),
 
               _Label(text: 'Phone number'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               RoundedInput(
                 hint: '+000000000000',
                 controller: _phoneController,
@@ -189,7 +188,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 16),
 
               _Label(text: 'Username'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               RoundedInput(
                 hint: '@username',
                 controller: _usernameController,
@@ -200,7 +199,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 16),
 
               _Label(text: 'Password'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               RoundedInput(
                 hint: '**************',
                 controller: _passController,
@@ -211,7 +210,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 16),
 
               _Label(text: 'Repeat password'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               RoundedInput(
                 hint: '**************',
                 controller: _repeatPassController,
@@ -222,7 +221,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 16),
 
               _Label(text: 'Date of birth'),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
 
               // Este es un “campo falso”: no escribes, lo tocas y abre el picker
               GestureDetector(
@@ -259,7 +258,7 @@ class _CreateaccountState extends State<Createaccount> {
               GradientShadowButton(
                 text: 'Continue',
                 onTap: _onContinue,
-                width: 300,
+                width: 200,
                 height: 44,
                 frontColor: AppColors.mustardyellow,
                 shadowColor: AppColors.vividtangelo,
@@ -282,15 +281,15 @@ class _Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 13,
-          fontStyle: FontStyle.italic,
-          color: Color(0xFFEDEDED),
-          fontWeight: FontWeight.w500,
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: EdgeInsets.only(left: screenWidth * 0.04), // 2% of screen width
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          text,
+          style: AppTextStyles.italic,
         ),
       ),
     );
