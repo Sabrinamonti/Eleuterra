@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 /// Botón con efecto “capa/sombra” de otro color
 class GradientShadowButton extends StatelessWidget {
-  final String text;
+  final String? text;
+  final Widget? child;
   final VoidCallback onTap;
   final double width;
   final double height;
@@ -14,7 +15,8 @@ class GradientShadowButton extends StatelessWidget {
 
   const GradientShadowButton({
     super.key,
-    required this.text,
+    this.text,
+    this.child,
     required this.onTap,
     required this.width,
     required this.height,
@@ -28,7 +30,7 @@ class GradientShadowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height*1.16, // espacio para la “sombra”
+      height: height * 1.16, // espacio para la “sombra”
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -41,10 +43,10 @@ class GradientShadowButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: shadowColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(height*0.45),
-                  topRight: Radius.circular(height*0.45),
-                  bottomLeft: Radius.circular(height*0.76),
-                  bottomRight: Radius.circular(height*0.76),
+                  topLeft: Radius.circular(height * 0.45),
+                  topRight: Radius.circular(height * 0.45),
+                  bottomLeft: Radius.circular(height * 0.76),
+                  bottomRight: Radius.circular(height * 0.76),
                 ),
               ),
             ),
@@ -54,36 +56,38 @@ class GradientShadowButton extends StatelessWidget {
           Positioned(
             top: 0,
             child: InkWell(
-              borderRadius: BorderRadius.circular(height*0.76),
+              borderRadius: BorderRadius.circular(height * 0.76),
               onTap: onTap,
               child: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                color: frontColor,
-                borderRadius: BorderRadius.circular(height * 0.76),
-                border: Border.all(
-                  color: borderColor,
-                  width: height * 0.11,
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: height * 0.05, // small visual correction
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  color: frontColor,
+                  borderRadius: BorderRadius.circular(height * 0.76),
+                  border: Border.all(
+                    color: borderColor,
+                    width: height * 0.11,
                   ),
-                  child: Text(
-                    text,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.title.copyWith(
-                      color: textColor,
-                      fontSize: height * 0.7, // make font responsive to button height
-                      height: 1,
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.05,
+                      horizontal: 12,
                     ),
+                    child: child ??
+                        Text(
+                          text ?? '',
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.title.copyWith(
+                            color: textColor,
+                            fontSize: height * 0.7,
+                            height: 1,
+                          ),
+                        ),
                   ),
                 ),
               ),
-            ),
             ),
           ),
         ],

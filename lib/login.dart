@@ -16,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
 
+  bool _obscurePassword = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -25,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    const textGrey = Color(0xFFFCFBF0); 
+    const textGrey = Color(0xFFFCFBF0);
 
     return Scaffold(
       backgroundColor: AppColors.charcoal,
@@ -45,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 10),
 
-              // LOGO (imagen)
               SvgPicture.asset(
                 'assets/images/Eleuterra-isotipo-naranja.svg',
                 height: 120,
@@ -61,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 22),
 
-              // Label + Field
               _Label(text: 'E-mail or username'),
               const SizedBox(height: 8),
               RoundedInput(
@@ -78,22 +78,39 @@ class _LoginPageState extends State<LoginPage> {
               RoundedInput(
                 hint: '**************',
                 controller: _passController,
-                obscureText: true,
+                obscureText: _obscurePassword,
                 borderColor: AppColors.vividtangelo,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 14),
+                    child: SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: Center(
+                        child: SvgPicture.asset(
+                          _obscurePassword
+                              ? 'assets/icons/closed-eye.svg'
+                              : 'assets/icons/eye.svg',
+                          width: 22,
+                          height: 22,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
 
               const SizedBox(height: 18),
 
-              // Continue button (con “doble capa”/sombra de color)
               GradientShadowButton(
                 text: 'Continue',
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Createaccount(),
-                    ),
-                  );
                 },
                 width: 300,
                 height: 40,
@@ -118,17 +135,25 @@ class _LoginPageState extends State<LoginPage> {
 
               const Text(
                 'Create your account',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: AppColors.floralwhite),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.floralwhite,
+                ),
                 textAlign: TextAlign.center,
               ),
 
               const SizedBox(height: 14),
 
-              // Start button (mismo estilo)
               GradientShadowButton(
                 text: 'Start',
                 onTap: () {
-                  // TODO: go to register
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Createaccount(),
+                    ),
+                  );
                 },
                 width: 190,
                 height: 44,
@@ -140,37 +165,39 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 14),
 
-              // Facebook button
               GradientShadowButton(
-                text: 'Start',
-                onTap: () {
-                },
+                onTap: () {},
                 width: 190,
                 height: 44,
                 frontColor: AppColors.slateblue,
                 shadowColor: AppColors.steelblue,
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.mistyblue,
+                child: SvgPicture.asset(
+                  'assets/icons/facebook_logo.svg',
+                  height: 20,
+                  fit: BoxFit.contain,
+                ),
               ),
 
               const SizedBox(height: 10),
 
-              // Google button
               GradientShadowButton(
-                text: 'Start',
-                onTap: () {
-                },
+                onTap: () {},
                 width: 190,
                 height: 44,
                 frontColor: AppColors.floralwhite,
-                shadowColor: Color(0xff4d4d4d),
+                shadowColor: const Color(0xff4d4d4d),
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.lightsand,
+                child: SvgPicture.asset(
+                  'assets/icons/google_logo.svg',
+                  height: 28,
+                  fit: BoxFit.contain,
+                ),
               ),
 
-
               const SizedBox(height: 20),
-
             ],
           ),
         ),
