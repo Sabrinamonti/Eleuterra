@@ -27,10 +27,10 @@ class RoundedInput extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      style: AppTextStyles.medium,
+      style: AppTextStyles.text,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: AppTextStyles.medium.copyWith(
+        hintStyle: AppTextStyles.text.copyWith(
           color: const Color(0xFF7F7F7F),
         ),
         errorText: errorText,

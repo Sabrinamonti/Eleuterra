@@ -2,6 +2,7 @@ import 'package:eleuterra_app/createaccount.dart';
 import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/textfield_rounded.dart';
 import 'package:eleuterra_app/theme/app_colors.dart';
+import 'package:eleuterra_app/theme/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -48,20 +49,17 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
 
               SvgPicture.asset(
-                'assets/images/Eleuterra-isotipo-naranja.svg',
+                'assets/images/eleuterra-logo-and-slogan.svg',
                 height: 120,
                 fit: BoxFit.contain,
               ),
 
               const SizedBox(height: 18),
 
-              const Text(
+              Text(
                 'Log In',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                style: AppTextStyles.subtitleMedium,
               ),
-
-              const SizedBox(height: 22),
-
               _Label(text: 'E-mail or username'),
               const SizedBox(height: 8),
               RoundedInput(
@@ -112,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'Continue',
                 onTap: () {
                 },
-                width: 300,
+                width: 190,
                 height: 40,
                 frontColor: AppColors.mustardyellow,
                 shadowColor: AppColors.vividtangelo,
@@ -122,25 +120,16 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 12),
 
-              const Text(
+              Text(
                 'Or',
-                style: TextStyle(
-                  color: AppColors.floralwhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppTextStyles.subtitleIntersection,
               ),
 
               const SizedBox(height: 18),
 
-              const Text(
+              Text(
                 'Create your account',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.floralwhite,
-                ),
-                textAlign: TextAlign.center,
+                style: AppTextStyles.subtitleMedium,
               ),
 
               const SizedBox(height: 14),

@@ -79,7 +79,7 @@ class GradientShadowButton extends StatelessWidget {
                         Text(
                           text ?? '',
                           textAlign: TextAlign.center,
-                          style: AppTextStyles.title.copyWith(
+                          style: AppTextStyles.buttonText.copyWith(
                             color: textColor,
                             fontSize: height * 0.7,
                             height: 1,

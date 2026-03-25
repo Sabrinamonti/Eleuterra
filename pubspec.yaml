@@ -64,10 +64,12 @@ flutter:
     - assets/images/Eleuterra-logotipo-naranja.svg
     - assets/images/Eleuterra-isotipo-naranja.svg
     - assets/images/Eleuterra-imagotipo-naranja.svg
+    - assets/images/eleuterra-logo-and-slogan.svg
     - assets/icons/eye.svg
     - assets/icons/closed-eye.svg
     - assets/icons/facebook_logo.svg
     - assets/icons/google_logo.svg
+
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -84,24 +86,29 @@ flutter:
   fonts:
     - family: CreatoDisplay
       fonts:
-        - asset: assets/fonts/CreatoDisplay-Light.otf
-          weight: 300
-        - asset: assets/fonts/CreatoDisplay-Regular.otf
-          weight: 400
         - asset: assets/fonts/CreatoDisplay-Medium.otf
           weight: 500
         - asset: assets/fonts/CreatoDisplay-Bold.otf
-          weight: 600
+          weight: 700
         - asset: assets/fonts/CreatoDisplay-ExtraBold.otf
           weight: 800
         - asset: assets/fonts/CreatoDisplay-Black.otf
           weight: 900
+        - asset: assets/fonts/CreatoDisplay-MediumItalic.otf
+          weight: 500
+          style: italic
         - asset: assets/fonts/CreatoDisplay-BoldItalic.otf
           weight: 700
           style: italic
+        - asset: assets/fonts/CreatoDisplay-ExtraBoldItalic.otf
+          weight: 800
+          style: italic
 
-        
-          
+    - family: Eleuth-Regular
+      fonts:
+        - asset: assets/fonts/Eleuth-Regular.ttf
+          weight: 800
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

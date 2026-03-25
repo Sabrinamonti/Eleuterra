@@ -194,7 +194,7 @@ class _CreateaccountState extends State<Createaccount> {
               const SizedBox(height: 12),
               Text(
                 'Create your account',
-                style: AppTextStyles.title,
+                style: AppTextStyles.subtitleMedium,
               ),
               const SizedBox(height: 20),
 
@@ -216,15 +216,15 @@ class _CreateaccountState extends State<Createaccount> {
                 IntlPhoneField(
                   controller: _phoneController,
                   initialCountryCode: 'US',
-                  style: AppTextStyles.medium,
+                  style: AppTextStyles.text,
 
-                  dropdownTextStyle: AppTextStyles.medium.copyWith(
+                  dropdownTextStyle: AppTextStyles.text.copyWith(
                     color: AppColors.floralwhite,
                   ),
 
                   decoration: InputDecoration(
                     hintText: 'Phone number',
-                    hintStyle: AppTextStyles.medium.copyWith(
+                    hintStyle: AppTextStyles.text.copyWith(
                       color: const Color(0xFF7F7F7F),
                     ),
 
@@ -399,7 +399,7 @@ class _Label extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Text(
           text,
-          style: AppTextStyles.italic,
+          style: AppTextStyles.placesText,
         ),
       ),
     );
