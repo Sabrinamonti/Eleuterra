@@ -69,6 +69,18 @@ flutter:
     - assets/icons/closed-eye.svg
     - assets/icons/facebook_logo.svg
     - assets/icons/google_logo.svg
+    - assets/flags/argentina.svg
+    - assets/flags/bolivia.svg
+    - assets/flags/brazil.svg
+    - assets/flags/chile.svg
+    - assets/flags/dominicanrepublic.svg
+    - assets/flags/ireland.svg
+    - assets/flags/mexico.svg
+    - assets/flags/morocco.svg
+    - assets/flags/panama.svg
+    - assets/flags/turkiye.svg
+    - assets/flags/usa.svg
+    - assets/flags/uruguay.svg
 
     
 

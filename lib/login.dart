@@ -3,8 +3,10 @@ import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/textfield_rounded.dart';
 import 'package:eleuterra_app/theme/app_colors.dart';
 import 'package:eleuterra_app/theme/app_text.dart';
+import 'package:eleuterra_app/expandable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -186,7 +188,130 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
+
+                /// 👇 WIDGET EXPANDIBLE (EJEMPLO VISUAL, NO VA AQUI)
+                ExpandableButton(
+                  title: 'Countries',
+
+                  // mismos valores que tus botones
+                  closedWidth: 190,
+                  closedHeight: 44,
+
+                  // tamaño cuando se abre (ajústalo si quieres)
+                  openWidth: 370,
+                  openHeight: 220,
+
+                  frontColor: AppColors.espressobrown,
+                  shadowColor: AppColors.vividtangelo,
+                  textColor: AppColors.floralwhite,
+                  borderColor: AppColors.royalorange,
+
+                  items: [
+                    ExpandableItem(
+                      label: 'Argentina',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/argentina.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Bolivia',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/bolivia.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Brazil',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/brazil.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Chile',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/chile.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Dominican Republic',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/dominicanrepublic.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Ireland',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/ireland.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Mexico',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/mexico.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Morocco',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/morocco.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Panama',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/panama.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Turkiye',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/turkiye.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'United States of America',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/usa.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                    ExpandableItem(
+                      label: 'Uruguay',
+                      trailing: SvgPicture.asset(
+                        'assets/flags/uruguay.svg',
+                        width: 24,
+                        height: 16,
+                      ),
+                    ),
+                  ],
+                ),
+
+                //FIN DEL BOTON EXPANDIBLE (EJEMPLO)
+
+                const SizedBox(height: 20),
+
+              
             ],
           ),
         ),
