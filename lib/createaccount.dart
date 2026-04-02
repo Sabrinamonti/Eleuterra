@@ -1,4 +1,5 @@
-import 'package:eleuterra_app/primary_button.dart';  
+import 'package:eleuterra_app/primary_button.dart';
+import 'package:eleuterra_app/primary_button_noreturn.dart';  
 import 'package:eleuterra_app/textfield_rounded.dart';
 import 'package:eleuterra_app/theme/app_colors.dart';
 import 'package:eleuterra_app/theme/app_text.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:eleuterra_app/home_screen_trip.dart';
 
 class Createaccount extends StatefulWidget {
   const Createaccount({super.key});
@@ -364,16 +366,10 @@ class _CreateaccountState extends State<Createaccount> {
                 const SizedBox(height: 12),
               ],
 
-              GradientShadowButton(
-                text: 'Continue',
-                onTap: _onContinue,
-                width: 200,
-                height: 44,
-                frontColor: AppColors.mustardyellow,
-                shadowColor: AppColors.vividtangelo,
-                textColor: AppColors.floralwhite,
-                borderColor: AppColors.royalorange,
-              ),
+                PrimaryButtonNoreturn(
+                  text: 'Continue',
+                  destination: const RouteTodayScreen(),
+                ),
 
               const SizedBox(height: 20),
             ],

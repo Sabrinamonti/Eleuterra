@@ -5,10 +5,7 @@ class ExpandableItem {
   final String label;
   final Widget trailing;
 
-  const ExpandableItem({
-    required this.label,
-    required this.trailing,
-  });
+  const ExpandableItem({required this.label, required this.trailing});
 }
 
 class ExpandableButton extends StatefulWidget {
@@ -47,18 +44,14 @@ class ExpandableButton extends StatefulWidget {
   });
 
   @override
-  State<ExpandableButton> createState() =>
-      _ExpandableButtonState();
+  State<ExpandableButton> createState() => _ExpandableButtonState();
 }
 
-class _ExpandableButtonState
-    extends State<ExpandableButton>
+class _ExpandableButtonState extends State<ExpandableButton>
     with SingleTickerProviderStateMixin {
   bool _isOpen = false;
 
   static const Duration _duration = Duration(milliseconds: 800);
-
-  // Curva equivalente aproximada a "Gentle" de Figma
   static const Curve _curve = Curves.easeInOutCubic;
 
   void _toggle() {
@@ -81,13 +74,7 @@ class _ExpandableButtonState
   }
 
   BorderRadius _openRadius(double height) {
-    // Mantengo responsive, pero menos exagerado que el pill del estado cerrado.
-    return BorderRadius.only(
-      topLeft: Radius.circular(height * 0.16),
-      topRight: Radius.circular(height * 0.16),
-      bottomLeft: Radius.circular(height * 0.16),
-      bottomRight: Radius.circular(height * 0.16),
-    );
+    return BorderRadius.circular(height * 0.16);
   }
 
   @override
@@ -95,28 +82,32 @@ class _ExpandableButtonState
     final width = _isOpen ? widget.openWidth : widget.closedWidth;
     final height = _isOpen ? widget.openHeight : widget.closedHeight;
 
-    final frontRadius =
-        _isOpen ? _openRadius(height) : _closedFrontRadius(widget.closedHeight);
+    final frontRadius = _isOpen
+        ? _openRadius(height)
+        : _closedFrontRadius(widget.closedHeight);
 
-    final shadowRadius =
-        _isOpen ? _openRadius(height) : _closedShadowRadius(widget.closedHeight);
+    final shadowRadius = _isOpen
+        ? _openRadius(height)
+        : _closedShadowRadius(widget.closedHeight);
 
-    final borderWidth =
-        _isOpen ? widget.closedHeight * 0.11 : widget.closedHeight * 0.11;
+    final borderWidth = widget.closedHeight * 0.11;
+
+    final currentFrontColor = _isOpen
+        ? const Color(0xFF282224)
+        : widget.frontColor;
 
     return AnimatedContainer(
       duration: _duration,
       curve: _curve,
       width: width,
-      height: height * 1.16, // mismo concepto que tu botón
+      height: _isOpen ? (height * 1.16) + 34 : height * 1.16,
       alignment: Alignment.topLeft,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Sombra
           Positioned(
             left: 0,
-            top: (_isOpen ? 10 : (height * 1.16 - height)),
+            top: _isOpen ? 44 : (height * 1.16 - height),
             child: AnimatedContainer(
               duration: _duration,
               curve: _curve,
@@ -128,11 +119,9 @@ class _ExpandableButtonState
               ),
             ),
           ),
-
-          // Frente
           Positioned(
             left: 0,
-            top: 0,
+            top: _isOpen ? 34 : 0,
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -144,7 +133,7 @@ class _ExpandableButtonState
                   width: width,
                   height: height,
                   decoration: BoxDecoration(
-                    color: widget.frontColor,
+                    color: currentFrontColor,
                     borderRadius: frontRadius,
                     border: Border.all(
                       color: widget.borderColor,
@@ -176,24 +165,17 @@ class _ExpandableButtonState
                           begin: const Offset(0.04, 0),
                           end: Offset.zero,
                         ).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: _curve,
-                          ),
+                          CurvedAnimation(parent: animation, curve: _curve),
                         );
 
                         return FadeTransition(
                           opacity: fade,
-                          child: SlideTransition(
-                            position: slide,
-                            child: child,
-                          ),
+                          child: SlideTransition(position: slide, child: child),
                         );
                       },
                       child: _isOpen
                           ? _OpenContent(
                               key: const ValueKey('open'),
-                              title: widget.title,
                               items: widget.items,
                               textColor: widget.textColor,
                               padding: widget.openContentPadding,
@@ -210,6 +192,25 @@ class _ExpandableButtonState
               ),
             ),
           ),
+          if (_isOpen)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: Center(
+                  child: Text(
+                    widget.title,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.buttonText.copyWith(
+                      color: widget.frontColor,
+                      fontSize: 24,
+                      height: 1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -232,10 +233,7 @@ class _ClosedContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: height * 0.05,
-          horizontal: 12,
-        ),
+        padding: EdgeInsets.symmetric(vertical: height * 0.05, horizontal: 12),
         child: Text(
           title,
           textAlign: TextAlign.center,
@@ -251,14 +249,12 @@ class _ClosedContent extends StatelessWidget {
 }
 
 class _OpenContent extends StatelessWidget {
-  final String title;
   final List<ExpandableItem> items;
   final Color textColor;
   final EdgeInsets padding;
 
   const _OpenContent({
     super.key,
-    required this.title,
     required this.items,
     required this.textColor,
     required this.padding,
@@ -266,12 +262,6 @@ class _OpenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = AppTextStyles.buttonText.copyWith(
-      color: textColor,
-      fontSize: 24,
-      height: 1,
-    );
-
     final itemStyle = AppTextStyles.buttonText.copyWith(
       color: textColor,
       fontSize: 16,
@@ -280,45 +270,28 @@ class _OpenContent extends StatelessWidget {
 
     return Padding(
       padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text(
-              title,
-              style: titleStyle,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Expanded(
-            child: Scrollbar(
-            thumbVisibility: true,
-            child: ListView.separated(
-              padding: EdgeInsets.zero,
-              physics: const BouncingScrollPhysics(),
-              itemCount: items.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 6),
-              itemBuilder: (context, index) {
-                final item = items[index];
+      child: ListView.separated(
+        padding: const EdgeInsets.only(top: 6),
+        physics: const BouncingScrollPhysics(),
+        itemCount: items.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 6),
+        itemBuilder: (context, index) {
+          final item = items[index];
 
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        item.label,
-                        overflow: TextOverflow.ellipsis,
-                        style: itemStyle,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    item.trailing,
-                  ],
-                );
-              },
-            ),
-          ),
-          )
-        ],
+          return Row(
+            children: [
+              Expanded(
+                child: Text(
+                  item.label,
+                  overflow: TextOverflow.ellipsis,
+                  style: itemStyle,
+                ),
+              ),
+              const SizedBox(width: 10),
+              item.trailing,
+            ],
+          );
+        },
       ),
     );
   }

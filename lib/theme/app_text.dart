@@ -5,21 +5,21 @@ class AppTextStyles {
 
   // ELEUTH
   static const bigTitle = TextStyle(
-    fontFamily: 'Eleuth',
+    fontFamily: 'Eleuth-Regular',
     fontSize: 54,
     fontWeight: FontWeight.w800,
     letterSpacing: 0,
   );
 
   static const title = TextStyle(
-    fontFamily: 'Eleuth',
+    fontFamily: 'Eleuth-Regular',
     fontSize: 32,
     fontWeight: FontWeight.w800,
     letterSpacing: 0,
   );
 
   static const smallTitle = TextStyle(
-    fontFamily: 'Eleuth',
+    fontFamily: 'Eleuth-Regular',
     fontSize: 24,
     fontWeight: FontWeight.w800,
     letterSpacing: 0,
