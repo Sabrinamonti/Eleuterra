@@ -8,21 +8,21 @@ class AppTextStyles {
     fontFamily: 'Eleuth-Regular',
     fontSize: 54,
     fontWeight: FontWeight.w800,
-    letterSpacing: 0,
+    letterSpacing: 1,
   );
 
   static const title = TextStyle(
     fontFamily: 'Eleuth-Regular',
     fontSize: 32,
     fontWeight: FontWeight.w800,
-    letterSpacing: 0,
+    letterSpacing: 1,
   );
 
   static const smallTitle = TextStyle(
     fontFamily: 'Eleuth-Regular',
     fontSize: 24,
     fontWeight: FontWeight.w800,
-    letterSpacing: 0,
+    letterSpacing: 1,
   );
 
   // CREATO DISPLAY
@@ -66,9 +66,9 @@ class AppTextStyles {
   static const placesTextSmall = TextStyle(
     fontFamily: 'CreatoDisplay',
     fontSize: 10,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w800,
     fontStyle: FontStyle.italic,
-    letterSpacing: -1,
+    letterSpacing: 0,
   );
 
   static const smallSubtitle = TextStyle(

@@ -4,15 +4,16 @@ import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/expandable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eleuterra_app/main_menu.dart';
 
-class RouteTodayScreen extends StatefulWidget {
-  const RouteTodayScreen({super.key});
+class HomeScreenTrip extends StatefulWidget {
+  const HomeScreenTrip({super.key});
 
   @override
-  State<RouteTodayScreen> createState() => _RouteTodayScreenState();
+  State<HomeScreenTrip> createState() => _HomeScreenTripState();
 }
 
-class _RouteTodayScreenState extends State<RouteTodayScreen> {
+class _HomeScreenTripState extends State<HomeScreenTrip> {
   final PageController _filtersController = PageController(viewportFraction: 1);
 
   bool _financeExpanded = false;
@@ -61,10 +62,7 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
             begin: const Offset(0, -1),
             end: Offset.zero,
           ).animate(curved),
-          child: FadeTransition(
-            opacity: curved,
-            child: child,
-          ),
+          child: FadeTransition(opacity: curved, child: child),
         );
       },
     );
@@ -94,7 +92,7 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
               const SizedBox(height: 16),
               Text(
                 'You have a Route today!',
-                style: AppTextStyles.title.copyWith(
+                style: AppTextStyles.textSubtitle.copyWith(
                   color: const Color(0xFFF9A044),
                 ),
               ),
@@ -142,6 +140,7 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
                   ],
                 ),
               ),
+
               const SizedBox(height: 10),
               Text(
                 'For this tour we recommend you talk or bike',
@@ -200,6 +199,9 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
                       shadowColor: const Color(0xFFF37927),
                       textColor: const Color(0xFFF0E2C5),
                       borderColor: const Color(0xFFF9A044),
+                      heightShadow: 1.16,
+                      radiusBordertop: 0.45,
+                      radiusBorderbottom: 0.76,
                     ),
                     const SizedBox(height: 8),
                     GradientShadowButton(
@@ -211,6 +213,9 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
                       shadowColor: const Color(0xFFF37927),
                       textColor: const Color(0xFFF0E2C5),
                       borderColor: const Color(0xFFF9A044),
+                      heightShadow: 1.16,
+                      radiusBordertop: 0.45,
+                      radiusBorderbottom: 0.76,
                     ),
                     const SizedBox(height: 8),
                     GradientShadowButton(
@@ -222,361 +227,365 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
                       shadowColor: const Color(0xFFF37927),
                       textColor: const Color(0xFFF0E2C5),
                       borderColor: const Color(0xFFF9A044),
+                      heightShadow: 1.16,
+                      radiusBordertop: 0.45,
+                      radiusBorderbottom: 0.76,
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 18),
-             ExpandableButton(
-                  title: 'Finance',
 
-                  // mismos valores que tus botones
-                  closedWidth: 370,
-                  closedHeight: 44,
+              ExpandableButton(
+                title: 'Finance',
 
-                  // tamaño cuando se abre (ajústalo si quieres)
-                  openWidth: 370,
-                  openHeight: 220,
+                // mismos valores que tus botones
+                closedWidth: 370,
+                closedHeight: 44,
 
-                  frontColor: AppColors.olivedrab,
-                  shadowColor: AppColors.forestgreen,
-                  textColor: AppColors.floralwhite,
-                  borderColor: AppColors.mossgreen,
+                // tamaño cuando se abre (ajústalo si quieres)
+                openWidth: 370,
+                openHeight: 220,
 
-                  items: [
-                    ExpandableItem(
-                      label: 'Argentina',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/argentina.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                frontColor: AppColors.olivedrab,
+                shadowColor: AppColors.forestgreen,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.mossgreen,
+
+                items: [
+                  ExpandableItem(
+                    label: 'Argentina',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/argentina.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Bolivia',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/bolivia.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Bolivia',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/bolivia.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Brazil',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/brazil.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Brazil',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/brazil.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Chile',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/chile.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Chile',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/chile.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Dominican Republic',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/dominicanrepublic.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Dominican Republic',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/dominicanrepublic.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Ireland',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/ireland.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Ireland',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/ireland.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Mexico',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/mexico.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Mexico',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/mexico.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Morocco',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/morocco.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Morocco',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/morocco.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Panama',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/panama.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Panama',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/panama.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Turkiye',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/turkiye.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Turkiye',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/turkiye.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'United States of America',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/usa.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'United States of America',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/usa.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Uruguay',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/uruguay.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Uruguay',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/uruguay.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 10),
               ExpandableButton(
-                  title: 'Trivia',
+                title: 'Trivia',
 
-                  // mismos valores que tus botones
-                  closedWidth: 370,
-                  closedHeight: 44,
+                // mismos valores que tus botones
+                closedWidth: 370,
+                closedHeight: 44,
 
-                  // tamaño cuando se abre (ajústalo si quieres)
-                  openWidth: 370,
-                  openHeight: 220,
+                // tamaño cuando se abre (ajústalo si quieres)
+                openWidth: 370,
+                openHeight: 220,
 
-                  frontColor: AppColors.mistyblue,
-                  shadowColor: AppColors.steelblue,
-                  textColor: AppColors.floralwhite,
-                  borderColor: AppColors.slateblue,
+                frontColor: AppColors.mistyblue,
+                shadowColor: AppColors.steelblue,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.slateblue,
 
-                  items: [
-                    ExpandableItem(
-                      label: 'Argentina',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/argentina.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                items: [
+                  ExpandableItem(
+                    label: 'Argentina',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/argentina.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Bolivia',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/bolivia.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Bolivia',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/bolivia.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Brazil',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/brazil.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Brazil',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/brazil.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Chile',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/chile.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Chile',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/chile.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Dominican Republic',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/dominicanrepublic.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Dominican Republic',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/dominicanrepublic.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Ireland',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/ireland.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Ireland',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/ireland.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Mexico',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/mexico.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Mexico',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/mexico.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Morocco',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/morocco.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Morocco',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/morocco.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Panama',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/panama.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Panama',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/panama.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Turkiye',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/turkiye.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Turkiye',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/turkiye.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'United States of America',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/usa.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'United States of America',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/usa.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Uruguay',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/uruguay.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Uruguay',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/uruguay.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 10),
 
-             ExpandableButton(
-                  title: 'Notes',
+              ExpandableButton(
+                title: 'Notes',
 
-                  // mismos valores que tus botones
-                  closedWidth: 370,
-                  closedHeight: 44,
+                // mismos valores que tus botones
+                closedWidth: 370,
+                closedHeight: 44,
 
-                  // tamaño cuando se abre (ajústalo si quieres)
-                  openWidth: 370,
-                  openHeight: 220,
+                // tamaño cuando se abre (ajústalo si quieres)
+                openWidth: 370,
+                openHeight: 220,
 
-                  frontColor: AppColors.mediumcarmine,
-                  shadowColor: AppColors.espressobrown,
-                  textColor: AppColors.floralwhite,
-                  borderColor: AppColors.earthybrown,
+                frontColor: AppColors.mediumcarmine,
+                shadowColor: AppColors.espressobrown,
+                textColor: AppColors.floralwhite,
+                borderColor: AppColors.earthybrown,
 
-                  items: [
-                    ExpandableItem(
-                      label: 'Argentina',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/argentina.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                items: [
+                  ExpandableItem(
+                    label: 'Argentina',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/argentina.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Bolivia',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/bolivia.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Bolivia',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/bolivia.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Brazil',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/brazil.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Brazil',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/brazil.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Chile',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/chile.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Chile',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/chile.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Dominican Republic',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/dominicanrepublic.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Dominican Republic',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/dominicanrepublic.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Ireland',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/ireland.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Ireland',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/ireland.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Mexico',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/mexico.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Mexico',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/mexico.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Morocco',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/morocco.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Morocco',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/morocco.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Panama',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/panama.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Panama',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/panama.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Turkiye',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/turkiye.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Turkiye',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/turkiye.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'United States of America',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/usa.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'United States of America',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/usa.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                    ExpandableItem(
-                      label: 'Uruguay',
-                      trailing: SvgPicture.asset(
-                        'assets/flags/uruguay.svg',
-                        width: 24,
-                        height: 16,
-                      ),
+                  ),
+                  ExpandableItem(
+                    label: 'Uruguay',
+                    trailing: SvgPicture.asset(
+                      'assets/flags/uruguay.svg',
+                      width: 24,
+                      height: 16,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 18),
 
@@ -637,10 +646,14 @@ class _RouteTodayScreenState extends State<RouteTodayScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 120),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: MainMenu(
+        currentItem: MainMenuItem.home,
+        homeDestination: HomeDestination.trip,
       ),
     );
   }
@@ -686,10 +699,7 @@ class _TopStatusBar extends StatelessWidget {
           width: 88,
           height: 28,
           onTap: () {},
-          child: SvgPicture.asset(
-            'assets/svg/svg_atlas_plus.svg',
-            height: 14,
-          ),
+          child: SvgPicture.asset('assets/svg/svg_atlas_plus.svg', height: 14),
         ),
         const SizedBox(width: 8),
         ThinBorderPillButton(
@@ -699,10 +709,7 @@ class _TopStatusBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/svg/svg_coin.svg',
-                height: 14,
-              ),
+              SvgPicture.asset('assets/svg/svg_coin.svg', height: 14),
               const SizedBox(width: 6),
               Text(
                 '550',
@@ -723,10 +730,7 @@ class _SearchAndFilters extends StatelessWidget {
   final PageController controller;
   final List<List<_TopFilterItem>> pages;
 
-  const _SearchAndFilters({
-    required this.controller,
-    required this.pages,
-  });
+  const _SearchAndFilters({required this.controller, required this.pages});
 
   @override
   Widget build(BuildContext context) {
@@ -738,10 +742,7 @@ class _SearchAndFilters extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Row(
             children: [
-              SvgPicture.asset(
-                'assets/svg/svg_lupa.svg',
-                height: 16,
-              ),
+              SvgPicture.asset('assets/svg/svg_lupa.svg', height: 16),
               const SizedBox(width: 8),
               Text(
                 'Search route',
@@ -750,63 +751,6 @@ class _SearchAndFilters extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          height: 34,
-          child: PageView.builder(
-            controller: controller,
-            padEnds: true,
-            pageSnapping: true,
-            itemCount: pages.length,
-            itemBuilder: (context, index) {
-              final items = pages[index];
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  const spacing = 8.0;
-                  final itemWidth = (constraints.maxWidth - (spacing * (items.length - 1))) / items.length;
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (var i = 0; i < items.length; i++) ...[
-                        SizedBox(
-                          width: itemWidth,
-                          child: ThinBorderPillButton(
-                            height: 30,
-                            onTap: () {},
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/svg/${items[i].assetName}.svg',
-                                  height: 12,
-                                ),
-                                const SizedBox(width: 5),
-                                Flexible(
-                                  child: Text(
-                                    items[i].label,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTextStyles.text.copyWith(
-                                      color: const Color(0xFFF0E2C5),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        if (i != items.length - 1) const SizedBox(width: spacing),
-                      ],
-                    ],
-                  );
-                },
-              );
-            },
           ),
         ),
       ],
@@ -824,11 +768,14 @@ class _MapRouteCard extends StatelessWidget {
     return GradientShadowButton(
       onTap: () {},
       width: width,
-      height: 156,
+      height: 100,
       frontColor: const Color(0xFF282224),
       shadowColor: const Color(0xFFF37927),
       textColor: const Color(0xFFF0E2C5),
       borderColor: const Color(0xFFF9A044),
+      radiusBordertop: 0.05,
+      radiusBorderbottom: 0.12,
+      heightShadow: 1.05,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -875,11 +822,7 @@ class _MapPoint extends StatelessWidget {
         color: color,
         shape: BoxShape.circle,
         boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 6,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 2)),
         ],
       ),
       alignment: Alignment.center,
@@ -898,10 +841,7 @@ class _BulletInfoRow extends StatelessWidget {
   final String iconAsset;
   final String text;
 
-  const _BulletInfoRow({
-    required this.iconAsset,
-    required this.text,
-  });
+  const _BulletInfoRow({required this.iconAsset, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -910,18 +850,13 @@ class _BulletInfoRow extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 3),
-          child: SvgPicture.asset(
-            'assets/svg/$iconAsset.svg',
-            height: 10,
-          ),
+          child: SvgPicture.asset('assets/svg/$iconAsset.svg', height: 10),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
-            style: AppTextStyles.text.copyWith(
-              color: const Color(0xFFF0E2C5),
-            ),
+            style: AppTextStyles.text.copyWith(color: const Color(0xFFF0E2C5)),
           ),
         ),
       ],
@@ -992,10 +927,7 @@ class _ScheduleList extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        'assets/svg/svg_dot.svg',
-                        height: 10,
-                      ),
+                      SvgPicture.asset('assets/svg/svg_dot.svg', height: 10),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -1093,9 +1025,7 @@ class _PlaceholderExpandedContent extends StatelessWidget {
       ),
       child: Text(
         '$title overlay / expanded content placeholder',
-        style: AppTextStyles.text.copyWith(
-          color: const Color(0xFFF0E2C5),
-        ),
+        style: AppTextStyles.text.copyWith(color: const Color(0xFFF0E2C5)),
       ),
     );
   }
@@ -1108,11 +1038,7 @@ class _TrophiesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
-        _TrophySlot(),
-        _TrophySlot(),
-        _TrophySlot(),
-      ],
+      children: const [_TrophySlot(), _TrophySlot(), _TrophySlot()],
     );
   }
 }
@@ -1131,10 +1057,7 @@ class _TrophySlot extends StatelessWidget {
         border: Border.all(color: const Color(0xFF5B5B5B)),
       ),
       child: Center(
-        child: SvgPicture.asset(
-          'assets/svg/svg_trophy_star.svg',
-          height: 24,
-        ),
+        child: SvgPicture.asset('assets/svg/svg_trophy_star.svg', height: 24),
       ),
     );
   }
@@ -1170,10 +1093,7 @@ class ThinBorderPillButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xFF282224),
             borderRadius: BorderRadius.circular(height * 0.7),
-            border: Border.all(
-              color: const Color(0xFFF9A044),
-              width: 1.2,
-            ),
+            border: Border.all(color: const Color(0xFFF9A044), width: 1.2),
           ),
           alignment: Alignment.center,
           child: child,
@@ -1246,8 +1166,5 @@ class _TopFilterItem {
   final String label;
   final String assetName;
 
-  const _TopFilterItem({
-    required this.label,
-    required this.assetName,
-  });
+  const _TopFilterItem({required this.label, required this.assetName});
 }

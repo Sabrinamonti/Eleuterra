@@ -24,4 +24,5 @@
     static const terrared = Color(0xFFE87552);
     static const deepred = Color(0xFFB5121B);
     static const deepteal = Color(0xFF007577);
+    static const midnightgrey = Color(0xFF666A6D);
  }

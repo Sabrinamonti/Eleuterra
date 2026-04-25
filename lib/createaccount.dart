@@ -368,7 +368,7 @@ class _CreateaccountState extends State<Createaccount> {
 
                 PrimaryButtonNoreturn(
                   text: 'Continue',
-                  destination: const RouteTodayScreen(),
+                  destination: const HomeScreenTrip(),
                 ),
 
               const SizedBox(height: 20),

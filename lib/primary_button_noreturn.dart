@@ -54,6 +54,9 @@ class PrimaryButtonNoreturn extends StatelessWidget {
       shadowColor: AppColors.vividtangelo,
       textColor: AppColors.floralwhite,
       borderColor: AppColors.royalorange,
+      radiusBordertop: 0.45,
+      radiusBorderbottom: 0.76,
+      heightShadow: 1.16,
     );
   }
 }

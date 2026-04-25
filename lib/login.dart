@@ -118,6 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                 shadowColor: AppColors.vividtangelo,
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.royalorange,
+                radiusBordertop: 0.45,
+                radiusBorderbottom: 0.76,
+                heightShadow: 1.16,
               ),
 
               const SizedBox(height: 12),
@@ -152,6 +155,9 @@ class _LoginPageState extends State<LoginPage> {
                 shadowColor: AppColors.vividtangelo,
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.royalorange,
+                radiusBordertop: 0.45,
+                radiusBorderbottom: 0.76,
+                heightShadow: 1.16,
               ),
 
               const SizedBox(height: 14),
@@ -164,6 +170,9 @@ class _LoginPageState extends State<LoginPage> {
                 shadowColor: AppColors.steelblue,
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.mistyblue,
+                radiusBordertop: 0.45,
+                radiusBorderbottom: 0.76,
+                heightShadow: 1.16,
                 child: SvgPicture.asset(
                   'assets/icons/facebook_logo.svg',
                   height: 20,
@@ -181,6 +190,9 @@ class _LoginPageState extends State<LoginPage> {
                 shadowColor: const Color(0xff4d4d4d),
                 textColor: AppColors.floralwhite,
                 borderColor: AppColors.lightsand,
+                radiusBordertop: 0.45,
+                radiusBorderbottom: 0.76,
+                heightShadow: 1.16,
                 child: SvgPicture.asset(
                   'assets/icons/google_logo.svg',
                   height: 28,

@@ -12,6 +12,9 @@ class GradientShadowButton extends StatelessWidget {
   final Color shadowColor;
   final Color textColor;
   final Color borderColor;
+  final double radiusBordertop;
+  final double radiusBorderbottom;
+  final double heightShadow;
 
   const GradientShadowButton({
     super.key,
@@ -24,13 +27,16 @@ class GradientShadowButton extends StatelessWidget {
     required this.shadowColor,
     required this.textColor,
     required this.borderColor,
+    this.radiusBorderbottom = 0,
+    this.radiusBordertop = 0,
+    this.heightShadow = 0.05,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height * 1.16, // espacio para la “sombra”
+      height: height * heightShadow, // espacio para la “sombra”
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -43,10 +49,10 @@ class GradientShadowButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: shadowColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(height * 0.45),
-                  topRight: Radius.circular(height * 0.45),
-                  bottomLeft: Radius.circular(height * 0.76),
-                  bottomRight: Radius.circular(height * 0.76),
+                  topLeft: Radius.circular(height * radiusBordertop),
+                  topRight: Radius.circular(height * radiusBordertop),
+                  bottomLeft: Radius.circular(height * radiusBorderbottom),
+                  bottomRight: Radius.circular(height * radiusBorderbottom),
                 ),
               ),
             ),
@@ -56,14 +62,14 @@ class GradientShadowButton extends StatelessWidget {
           Positioned(
             top: 0,
             child: InkWell(
-              borderRadius: BorderRadius.circular(height * 0.76),
+              borderRadius: BorderRadius.circular(height * radiusBorderbottom),
               onTap: onTap,
               child: Container(
                 width: width,
                 height: height,
                 decoration: BoxDecoration(
                   color: frontColor,
-                  borderRadius: BorderRadius.circular(height * 0.76),
+                  borderRadius: BorderRadius.circular(height * radiusBorderbottom),
                   border: Border.all(
                     color: borderColor,
                     width: height * 0.11,

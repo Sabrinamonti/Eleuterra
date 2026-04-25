@@ -81,6 +81,13 @@ flutter:
     - assets/flags/turkiye.svg
     - assets/flags/usa.svg
     - assets/flags/uruguay.svg
+    - assets/menu_icons/home.svg
+    - assets/menu_icons/news.svg
+    - assets/menu_icons/profile.svg
+    - assets/menu_icons/trivia.svg
+    - assets/menu_icons/world.svg
+    - assets/icons/coin.svg
+    - assets/menu_icons/more.svg
 
     
 
