@@ -87,6 +87,22 @@ flutter:
     - assets/menu_icons/trivia.svg
     - assets/menu_icons/world.svg
     - assets/icons/coin.svg
+    - assets/icons/clock.svg
+    - assets/icons/alarm.svg
+    - assets/icons/atlas_logo.svg
+    - assets/icons/rodo_happy.svg
+    - assets/icons/1.svg
+    - assets/icons/2.svg
+    - assets/icons/3.svg
+    - assets/icons/4.svg
+    - assets/icons/5.svg
+    - assets/icons/6.svg
+    - assets/icons/dot.svg
+    - assets/icons/drop.svg
+    - assets/icons/pin.svg
+    - assets/icons/walk.svg
+    - assets/icons/weather.svg
+    - assets/icons/glass.svg
     - assets/menu_icons/more.svg
 
     

@@ -66,8 +66,7 @@ class AppTextStyles {
   static const placesTextSmall = TextStyle(
     fontFamily: 'CreatoDisplay',
     fontSize: 10,
-    fontWeight: FontWeight.w800,
-    fontStyle: FontStyle.italic,
+    fontWeight: FontWeight.w900,
     letterSpacing: 0,
   );
 

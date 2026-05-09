@@ -1,56 +1,31 @@
-import 'package:eleuterra_app/theme/app_text.dart';
-import 'package:eleuterra_app/theme/app_colors.dart';
-import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/expandable_button.dart';
+import 'package:eleuterra_app/big_button.dart';
+import 'package:eleuterra_app/main_menu.dart';
+import 'package:eleuterra_app/primary_button.dart';
+import 'package:eleuterra_app/theme/app_colors.dart';
+import 'package:eleuterra_app/theme/app_text.dart';
+import 'package:eleuterra_app/top_trip_status_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:eleuterra_app/main_menu.dart';
 
-class HomeScreenTrip extends StatefulWidget {
+const Color _background = AppColors.charcoal;
+const Color _frontDark = AppColors.espressobrown;
+const Color _cream = AppColors.lightsand;
+const Color _orange = AppColors.royalorange;
+const Color _deepOrange = AppColors.vividtangelo;
+const Color _mutedText = AppColors.midnightgrey;
+
+class HomeScreenTrip extends StatelessWidget {
   const HomeScreenTrip({super.key});
 
-  @override
-  State<HomeScreenTrip> createState() => _HomeScreenTripState();
-}
-
-class _HomeScreenTripState extends State<HomeScreenTrip> {
-  final PageController _filtersController = PageController(viewportFraction: 1);
-
-  bool _financeExpanded = false;
-  bool _triviaExpanded = false;
-  bool _notesExpanded = false;
-
-  final List<List<_TopFilterItem>> _filterPages = const [
-    [
-      _TopFilterItem(label: 'Restaurant', assetName: 'svg_restaurant'),
-      _TopFilterItem(label: 'Museum', assetName: 'svg_museum'),
-      _TopFilterItem(label: 'Mosque', assetName: 'svg_mosque'),
-      _TopFilterItem(label: 'Park', assetName: 'svg_park'),
-    ],
-    [
-      _TopFilterItem(label: 'Bazaar', assetName: 'svg_bazaar'),
-      _TopFilterItem(label: 'Viewpoint', assetName: 'svg_viewpoint'),
-      _TopFilterItem(label: 'Cafe', assetName: 'svg_cafe'),
-      _TopFilterItem(label: 'Hotel', assetName: 'svg_hotel'),
-    ],
-  ];
-
-  @override
-  void dispose() {
-    _filtersController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _openCityOverlay() async {
+  Future<void> _openCityOverlay(BuildContext context) async {
     await showGeneralDialog(
       context: context,
       barrierDismissible: true,
       barrierLabel: 'city_overlay',
       barrierColor: Colors.black.withValues(alpha: 0.45),
       transitionDuration: const Duration(milliseconds: 320),
-      pageBuilder: (_, __, ___) {
-        return const _TopDropOverlay();
-      },
+      pageBuilder: (_, __, ___) => const _TopDropOverlay(),
       transitionBuilder: (_, animation, __, child) {
         final curved = CurvedAnimation(
           parent: animation,
@@ -62,7 +37,10 @@ class _HomeScreenTripState extends State<HomeScreenTrip> {
             begin: const Offset(0, -1),
             end: Offset.zero,
           ).animate(curved),
-          child: FadeTransition(opacity: curved, child: child),
+          child: FadeTransition(
+            opacity: curved,
+            child: child,
+          ),
         );
       },
     );
@@ -70,582 +48,309 @@ class _HomeScreenTripState extends State<HomeScreenTrip> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    final screenWidth = size.width;
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final double contentWidth = screenWidth - 40;
+    final double mapWidth = contentWidth.clamp(0.0, 390.0).toDouble();
+
+    // MODIFICA EL ALTO DEL MAPA ACA.
+    const double mapHeight = 170;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF151515),
+      backgroundColor: AppColors.charcoal,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _TopStatusBar(onCityTap: _openCityOverlay),
-              const SizedBox(height: 14),
-              _SearchAndFilters(
-                controller: _filtersController,
-                pages: _filterPages,
+              TopTripStatusButtons(
+                onCityTap: () => _openCityOverlay(context),
+                onAtlasTap: () {},
+                onCoinsTap: () {},
+                coins: 250,
               ),
+
               const SizedBox(height: 14),
-              _MapRouteCard(width: screenWidth - 40),
-              const SizedBox(height: 16),
-              Text(
-                'You have a Route today!',
-                style: AppTextStyles.textSubtitle.copyWith(
-                  color: const Color(0xFFF9A044),
+
+              const _SearchBar(),
+
+              const SizedBox(height: 14),
+
+              Center(
+                child: BigButton(
+                  width: mapWidth,
+                  height: mapHeight,
+                  frontColor: AppColors.espressobrown,
+                  shadowColor: AppColors.vividtangelo,
+                  borderColor: AppColors.royalorange,
+                  borderWidth: 5.5,
+                  borderRadius: 28,
+                  shadowOffset: 14,
+                  onTap: () {},
+
+                  // Luego reemplaza esto por tu API de mapa:
+                  // child: GoogleMap(...),
+                  child: const SizedBox.expand(),
                 ),
               ),
+
+              const SizedBox(height: 16),
+
+              Text(
+                'You have a Route today!',
+                style: AppTextStyles.title.copyWith(
+                  color: AppColors.royalorange,
+                ),
+              ),
+
               const SizedBox(height: 2),
+
               Text(
                 'Day 1 Istanbul',
                 style: AppTextStyles.smallSubtitle.copyWith(
-                  color: const Color(0xFFF0E2C5),
+                  color: AppColors.lightsand,
                 ),
               ),
+
               const SizedBox(height: 10),
-              _BulletInfoRow(
-                iconAsset: 'svg_dot',
-                text: 'This tour will take you 7 h 30 m to enjoy completely',
+
+              const _IconTextRow(
+                assetPath: 'assets/icons/clock.svg',
+                text: 'This tour will take you: 6:10 hours approxapproximately.',
+                iconSize: 16,
               ),
+
               const SizedBox(height: 6),
-              _BulletInfoRow(
-                iconAsset: 'svg_dot',
+
+              const _IconTextRow(
+                assetPath: 'assets/icons/alarm.svg',
                 text:
                     'We recommend leaving at 9:00 so you can enjoy your route calmly',
-              ),
-              const SizedBox(height: 10),
-              const _RouteSummaryDivider(),
-              const SizedBox(height: 10),
-              RichText(
-                text: TextSpan(
-                  style: AppTextStyles.text.copyWith(
-                    color: const Color(0xFFF0E2C5),
-                  ),
-                  children: [
-                    const TextSpan(text: 'Your trip is from '),
-                    TextSpan(
-                      text: 'March 23 to April 12',
-                      style: AppTextStyles.boldText.copyWith(
-                        color: const Color(0xFFF0E2C5),
-                      ),
-                    ),
-                    const TextSpan(text: '  ·  '),
-                    TextSpan(
-                      text: '19 days left!',
-                      style: AppTextStyles.boldText.copyWith(
-                        color: const Color(0xFFF9A044),
-                      ),
-                    ),
-                  ],
-                ),
+                iconSize: 16,
               ),
 
               const SizedBox(height: 10),
+
+              const Divider(
+                color: AppColors.lightsand,
+                height: 1,
+                thickness: 1,
+              ),
+
+              const SizedBox(height: 10),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: RichText(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                        style: AppTextStyles.text.copyWith(
+                        color: AppColors.lightsand,
+                        ),
+                        children: [
+                          const TextSpan(text: 'Your trip is: from '),
+                          TextSpan(
+                            text: 'March 23 to April 12',
+                            style: AppTextStyles.text.copyWith(
+                            color: AppColors.lightsand,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  Text(
+                    '19 days left!',
+                    textAlign: TextAlign.right,
+                    style: AppTextStyles.text.copyWith(
+                      color: AppColors.royalorange,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 4),
+
               Text(
-                'For this tour we recommend you talk or bike',
-                style: AppTextStyles.text.copyWith(
-                  color: const Color(0xFFF0E2C5),
+                'For this tour we recommend you Walk or Bike',
+                style: AppTextStyles.optionsSub.copyWith(
+                  color: AppColors.lightsand,
                 ),
               ),
+
+              const SizedBox(height: 1),
+
               Text(
                 'By Walk',
-                style: AppTextStyles.placesSubtitle.copyWith(
-                  color: const Color(0xFFF0E2C5),
+                style: AppTextStyles.textSubtitle.copyWith(
+                  color: AppColors.lightsand,
                 ),
               ),
-              const SizedBox(height: 10),
+
+              const SizedBox(height: 1),
+
               Text(
                 "Today's Schedule",
-                style: AppTextStyles.boldText.copyWith(
-                  color: const Color(0xFFF0E2C5),
+                style: AppTextStyles.textSmallSubtitle.copyWith(
+                  color: AppColors.lightsand,
                 ),
               ),
+
               const SizedBox(height: 8),
+
               const _ScheduleList(),
+
               const SizedBox(height: 12),
+
               Text(
-                'Health Info',
-                style: AppTextStyles.boldText.copyWith(
-                  color: const Color(0xFFF0E2C5),
+                'Health info.',
+                style: AppTextStyles.textSmallSubtitle.copyWith(
+                  color: AppColors.lightsand,
                 ),
               ),
+
               const SizedBox(height: 8),
-              _BulletInfoRow(
-                iconAsset: 'svg_dot',
-                text: 'Weather: 20° Cloudy Sunny.',
+
+              const _IconTextRow(
+                assetPath: 'assets/icons/weather.svg',
+                text: 'Weather: 25 °C Mostly Sunny.',
+                iconSize: 12,
               ),
+
               const SizedBox(height: 6),
-              _BulletInfoRow(
-                iconAsset: 'svg_dot',
+
+              const _IconTextRow(
+                assetPath: 'assets/icons/walk.svg',
                 text:
-                    'Approximate daily steps for your trip today: tour: 14,000 steps!',
+                    "Approximate steps you will take on today's tour: 16,000 steps!",
+                iconSize: 16,
               ),
+
               const SizedBox(height: 6),
-              _BulletInfoRow(
-                iconAsset: 'svg_dot',
-                text: "Don't forget to drink water!",
-              ),
-              const SizedBox(height: 18),
-              Center(
-                child: Column(
-                  children: [
-                    GradientShadowButton(
-                      text: 'Check your trip',
-                      onTap: () {},
-                      width: 185,
-                      height: 34,
-                      frontColor: const Color(0xFF282224),
-                      shadowColor: const Color(0xFFF37927),
-                      textColor: const Color(0xFFF0E2C5),
-                      borderColor: const Color(0xFFF9A044),
-                      heightShadow: 1.16,
-                      radiusBordertop: 0.45,
-                      radiusBorderbottom: 0.76,
-                    ),
-                    const SizedBox(height: 8),
-                    GradientShadowButton(
-                      text: 'Program a New Trip',
-                      onTap: () {},
-                      width: 215,
-                      height: 34,
-                      frontColor: const Color(0xFF282224),
-                      shadowColor: const Color(0xFFF37927),
-                      textColor: const Color(0xFFF0E2C5),
-                      borderColor: const Color(0xFFF9A044),
-                      heightShadow: 1.16,
-                      radiusBordertop: 0.45,
-                      radiusBorderbottom: 0.76,
-                    ),
-                    const SizedBox(height: 8),
-                    GradientShadowButton(
-                      text: 'Program a New Route',
-                      onTap: () {},
-                      width: 220,
-                      height: 34,
-                      frontColor: const Color(0xFF282224),
-                      shadowColor: const Color(0xFFF37927),
-                      textColor: const Color(0xFFF0E2C5),
-                      borderColor: const Color(0xFFF9A044),
-                      heightShadow: 1.16,
-                      radiusBordertop: 0.45,
-                      radiusBorderbottom: 0.76,
-                    ),
-                  ],
+
+              _IconTextRow(
+                assetPath: 'assets/icons/drop.svg',
+                text: "Don’t forget to drink water!",
+                iconSize: 16,
+                textStyle: AppTextStyles.boldText.copyWith(
+                  color: AppColors.lightsand,
                 ),
               ),
+
               const SizedBox(height: 18),
 
-              ExpandableButton(
-                title: 'Finance',
+              const _TripButtons(),
 
-                // mismos valores que tus botones
-                closedWidth: 370,
-                closedHeight: 44,
+              const SizedBox(height: 18),
 
-                // tamaño cuando se abre (ajústalo si quieres)
-                openWidth: 370,
-                openHeight: 220,
-
+              _SectionExpandableButton(
+                title: 'Finance', 
                 frontColor: AppColors.olivedrab,
                 shadowColor: AppColors.forestgreen,
-                textColor: AppColors.floralwhite,
                 borderColor: AppColors.mossgreen,
-
-                items: [
-                  ExpandableItem(
-                    label: 'Argentina',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/argentina.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Bolivia',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/bolivia.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Brazil',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/brazil.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Chile',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/chile.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Dominican Republic',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/dominicanrepublic.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Ireland',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/ireland.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Mexico',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/mexico.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Morocco',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/morocco.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Panama',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/panama.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Turkiye',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/turkiye.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'United States of America',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/usa.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Uruguay',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/uruguay.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                ],
               ),
 
               const SizedBox(height: 10),
-              ExpandableButton(
+
+              _SectionExpandableButton(
                 title: 'Trivia',
-
-                // mismos valores que tus botones
-                closedWidth: 370,
-                closedHeight: 44,
-
-                // tamaño cuando se abre (ajústalo si quieres)
-                openWidth: 370,
-                openHeight: 220,
-
                 frontColor: AppColors.mistyblue,
                 shadowColor: AppColors.steelblue,
-                textColor: AppColors.floralwhite,
                 borderColor: AppColors.slateblue,
-
-                items: [
-                  ExpandableItem(
-                    label: 'Argentina',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/argentina.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Bolivia',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/bolivia.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Brazil',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/brazil.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Chile',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/chile.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Dominican Republic',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/dominicanrepublic.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Ireland',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/ireland.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Mexico',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/mexico.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Morocco',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/morocco.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Panama',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/panama.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Turkiye',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/turkiye.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'United States of America',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/usa.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Uruguay',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/uruguay.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                ],
               ),
 
               const SizedBox(height: 10),
 
-              ExpandableButton(
+              _SectionExpandableButton(
                 title: 'Notes',
-
-                // mismos valores que tus botones
-                closedWidth: 370,
-                closedHeight: 44,
-
-                // tamaño cuando se abre (ajústalo si quieres)
-                openWidth: 370,
-                openHeight: 220,
-
                 frontColor: AppColors.mediumcarmine,
                 shadowColor: AppColors.espressobrown,
-                textColor: AppColors.floralwhite,
                 borderColor: AppColors.earthybrown,
-
-                items: [
-                  ExpandableItem(
-                    label: 'Argentina',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/argentina.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Bolivia',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/bolivia.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Brazil',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/brazil.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Chile',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/chile.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Dominican Republic',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/dominicanrepublic.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Ireland',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/ireland.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Mexico',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/mexico.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Morocco',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/morocco.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Panama',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/panama.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Turkiye',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/turkiye.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'United States of America',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/usa.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                  ExpandableItem(
-                    label: 'Uruguay',
-                    trailing: SvgPicture.asset(
-                      'assets/flags/uruguay.svg',
-                      width: 24,
-                      height: 16,
-                    ),
-                  ),
-                ],
               ),
 
               const SizedBox(height: 18),
 
               Text(
                 'Trophies',
-                style: AppTextStyles.title.copyWith(
-                  color: const Color(0xFFF0E2C5),
-                  fontSize: 18,
+                style: AppTextStyles.textSubtitle.copyWith(
+                  color: AppColors.lightsand,
+                  fontSize: 36,
                 ),
               ),
+
               const SizedBox(height: 10),
-              GradientShadowButton(
-                onTap: () {},
-                width: screenWidth - 40,
-                height: 92,
-                frontColor: const Color(0xFF282224),
+
+Center(
+                child: BigButton(
+                  width: mapWidth,
+                  height: mapHeight,
+                frontColor: AppColors.espressobrown,
                 shadowColor: const Color(0xFF333333),
-                textColor: const Color(0xFFF0E2C5),
                 borderColor: const Color(0xFF4E4D4E),
-                child: const _TrophiesContent(),
+                  borderWidth: 5.5,
+                  borderRadius: 28,
+                  shadowOffset: 14,
+                  onTap: () {},
+
+                  child: const SizedBox.expand(),
+                ),
               ),
+
+
               const SizedBox(height: 14),
+
               Center(
                 child: Text(
                   'No trophies earned in Istanbul yet!',
                   style: AppTextStyles.text.copyWith(
-                    color: const Color(0xFF666A6D),
+                    color: AppColors.midnightgrey,
                   ),
                 ),
               ),
+
               const SizedBox(height: 6),
+
               Center(
                 child: Text(
                   'Claim your Annual Gift!',
                   style: AppTextStyles.boldText.copyWith(
-                    color: const Color(0xFFF9A044),
+                    color: AppColors.royalorange,
                   ),
                 ),
               ),
+
               const SizedBox(height: 8),
+
               Center(
                 child: SvgPicture.asset(
-                  'assets/svg/svg_gift_box.svg',
+                  'assets/icons/gift.svg',
                   height: 54,
                 ),
               ),
+
               const SizedBox(height: 10),
+
               Center(
                 child: GestureDetector(
                   onTap: () {},
                   child: Text(
                     'Terms and Conditions',
                     style: AppTextStyles.text.copyWith(
-                      color: const Color(0xFF666A6D),
+                      color: AppColors.midnightgrey,
                       decoration: TextDecoration.underline,
-                      decorationColor: const Color(0xFF666A6D),
+                      decorationColor: AppColors.midnightgrey,
                     ),
                   ),
                 ),
               ),
+
               const SizedBox(height: 120),
             ],
           ),
@@ -659,220 +364,82 @@ class _HomeScreenTripState extends State<HomeScreenTrip> {
   }
 }
 
-class _TopStatusBar extends StatelessWidget {
-  final VoidCallback onCityTap;
-
-  const _TopStatusBar({required this.onCityTap});
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ThinBorderPillButton(
-            height: 28,
-            onTap: onCityTap,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/svg/svg_istanbul_flag.svg',
-                  height: 14,
-                ),
-                const SizedBox(width: 6),
-                Flexible(
-                  child: Text(
-                    'Istanbul, Türkiye',
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.text.copyWith(
-                      color: const Color(0xFFF0E2C5),
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        ThinBorderPillButton(
-          width: 88,
-          height: 28,
-          onTap: () {},
-          child: SvgPicture.asset('assets/svg/svg_atlas_plus.svg', height: 14),
-        ),
-        const SizedBox(width: 8),
-        ThinBorderPillButton(
-          width: 70,
-          height: 28,
-          onTap: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset('assets/svg/svg_coin.svg', height: 14),
-              const SizedBox(width: 6),
-              Text(
-                '550',
-                style: AppTextStyles.text.copyWith(
-                  color: const Color(0xFFF0E2C5),
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SearchAndFilters extends StatelessWidget {
-  final PageController controller;
-  final List<List<_TopFilterItem>> pages;
-
-  const _SearchAndFilters({required this.controller, required this.pages});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ThinBorderPillButton(
-          height: 33,
-          onTap: () {},
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Row(
-            children: [
-              SvgPicture.asset('assets/svg/svg_lupa.svg', height: 16),
-              const SizedBox(width: 8),
-              Text(
-                'Search route',
-                style: AppTextStyles.text.copyWith(
-                  color: const Color(0xFF8F836D),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MapRouteCard extends StatelessWidget {
-  final double width;
-
-  const _MapRouteCard({required this.width});
-
-  @override
-  Widget build(BuildContext context) {
-    return GradientShadowButton(
+    return ThinBorderPillButton(
+      height: 33,
       onTap: () {},
-      width: width,
-      height: 100,
-      frontColor: const Color(0xFF282224),
-      shadowColor: const Color(0xFFF37927),
-      textColor: const Color(0xFFF0E2C5),
-      borderColor: const Color(0xFFF9A044),
-      radiusBordertop: 0.05,
-      radiusBorderbottom: 0.12,
-      heightShadow: 1.05,
-      child: Stack(
-        fit: StackFit.expand,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: Image.asset(
-              'assets/images/mock_route_map.png',
-              fit: BoxFit.cover,
+          SvgPicture.asset(
+            'assets/icons/glass.svg',
+            height: 12,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            'Search route',
+            style: AppTextStyles.text.copyWith(
+              color: AppColors.midnightgrey,
             ),
           ),
-          Positioned(
-            left: 10,
-            top: 18,
-            child: _MapPoint(number: '1', color: const Color(0xFFF9A044)),
-          ),
-          Positioned(
-            left: 65,
-            bottom: 14,
-            child: _MapPoint(number: '2', color: const Color(0xFF7F8D44)),
-          ),
-          Positioned(
-            left: 118,
-            top: 52,
-            child: _MapPoint(number: '3', color: const Color(0xFF7F94C8)),
-          ),
         ],
       ),
     );
   }
 }
 
-class _MapPoint extends StatelessWidget {
-  final String number;
-  final Color color;
-
-  const _MapPoint({required this.number, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 28,
-      height: 28,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        boxShadow: const [
-          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        number,
-        style: AppTextStyles.boldText.copyWith(
-          color: Colors.white,
-          fontSize: 16,
-        ),
-      ),
-    );
-  }
-}
-
-class _BulletInfoRow extends StatelessWidget {
-  final String iconAsset;
+class _IconTextRow extends StatelessWidget {
+  final String assetPath;
   final String text;
+  final double iconSize;
+  final double iconBoxWidth;
+  final TextStyle? textStyle;
 
-  const _BulletInfoRow({required this.iconAsset, required this.text});
+  const _IconTextRow({
+    required this.assetPath,
+    required this.text,
+    this.iconSize = 16,
+    this.iconBoxWidth = 24,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final effectiveTextStyle = textStyle ??
+        AppTextStyles.text.copyWith(
+          color: AppColors.lightsand,
+        );
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 3),
-          child: SvgPicture.asset('assets/svg/$iconAsset.svg', height: 10),
+        SizedBox(
+          width: iconBoxWidth,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: SvgPicture.asset(
+                assetPath,
+                height: iconSize,
+              ),
+            ),
+          ),
         ),
+
         const SizedBox(width: 8),
+
         Expanded(
           child: Text(
             text,
-            style: AppTextStyles.text.copyWith(color: const Color(0xFFF0E2C5)),
+            style: effectiveTextStyle,
           ),
         ),
       ],
-    );
-  }
-}
-
-class _RouteSummaryDivider extends StatelessWidget {
-  const _RouteSummaryDivider();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 1,
-      color: const Color(0xFFF0E2C5),
     );
   }
 }
@@ -880,72 +447,163 @@ class _RouteSummaryDivider extends StatelessWidget {
 class _ScheduleList extends StatelessWidget {
   const _ScheduleList();
 
+  static const double _startColumnWidth = 160;
+  static const double _iconSlotWidth = 16;
+  static const double _iconTextGap = 4;
+  static const double _Indent = 16;
+
+
+  static const List<_ScheduleEntry> _rows = [
+    _ScheduleEntry(
+      place: 'Walk',
+      start: '10 minutes.',
+      iconAsset: 'assets/icons/dot.svg',
+      iconSize: 10,
+      indent: true,
+    ),
+    _ScheduleEntry(
+      place: 'Grand Bazaar',
+      start: '1:05 hours.',
+      iconAsset: 'assets/icons/1.svg',
+      iconSize: 16,
+    ),
+    _ScheduleEntry(
+      place: 'Walk',
+      start: '15 minutes.',
+      iconAsset: 'assets/icons/dot.svg',
+      iconSize: 10,
+      indent: true,
+    ),
+    _ScheduleEntry(
+      place: 'Sultan Ahmed Mosque',
+      start: '35 minutes.',
+      iconAsset: 'assets/icons/2.svg',
+      iconSize: 16,
+    ),
+    _ScheduleEntry(
+      place: 'Walk',
+      start: '10 minutes.',
+      iconAsset: 'assets/icons/dot.svg',
+      iconSize: 10,
+      indent: true,
+    ),
+    _ScheduleEntry(
+      place: 'Hagia Sofia Mosque',
+      start: '1:30 hours.',
+      iconAsset: 'assets/icons/3.svg',
+      iconSize: 16,
+    ),
+    _ScheduleEntry(
+      place: 'Walk',
+      start: '45 minutes.',
+      iconAsset: 'assets/icons/dot.svg',
+      iconSize: 10,
+      indent: true,
+    ),
+    _ScheduleEntry(
+      place: 'Topkapi Palace',
+      start: '2:15 hours.',
+      iconAsset: 'assets/icons/4.svg',
+      iconSize: 16,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    const rows = [
-      ('Levant', '10 minutes.'),
-      ('Grand Bazaar', '15 minutes.'),
-      ('Sulat Ahmet Mosque', '35 minutes.'),
-      ('Hagia Sofia Mosque', '120 minutes.'),
-      ('Yerebatan Sarnici', '45 minutes.'),
-      ('Topkapi Palace', '2.5 hours.'),
-    ];
+    final headerStyle = AppTextStyles.boldText.copyWith(
+      color: AppColors.lightsand,
+    );
+
+    final rowStyle = AppTextStyles.text.copyWith(
+      color: AppColors.lightsand,
+    );
 
     return Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Text(
-                'Place',
-                style: AppTextStyles.text.copyWith(
-                  color: const Color(0xFFF0E2C5),
-                  fontWeight: FontWeight.w800,
-                ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: _iconSlotWidth,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/icons/pin.svg',
+                        height: 16,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: _iconTextGap),
+
+                  Expanded(
+                    child: Text(
+                      'Location',
+                      style: headerStyle,
+                    ),
+                  ),
+                ],
               ),
             ),
+
             SizedBox(
-              width: 120,
+              width: _startColumnWidth,
               child: Text(
                 'Start',
-                textAlign: TextAlign.left,
-                style: AppTextStyles.text.copyWith(
-                  color: const Color(0xFFF0E2C5),
-                  fontWeight: FontWeight.w800,
-                ),
+                style: headerStyle,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 6),
-        for (final row in rows)
+
+        const SizedBox(height: 0.5),
+
+        for (final item in _rows)
           Padding(
-            padding: const EdgeInsets.only(bottom: 4),
+            padding: const EdgeInsets.only(bottom: 0.5),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Row(
                     children: [
-                      SvgPicture.asset('assets/svg/svg_dot.svg', height: 10),
-                      const SizedBox(width: 8),
+                      if (item.indent) const SizedBox(width: _Indent),
+
+                      SizedBox(
+                        width: _iconSlotWidth,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            item.iconAsset,
+                            height: item.iconSize,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: _iconTextGap),
+
                       Expanded(
                         child: Text(
-                          row.$1,
-                          style: AppTextStyles.text.copyWith(
-                            color: const Color(0xFFF0E2C5),
-                          ),
+                          item.place,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: rowStyle,
                         ),
                       ),
                     ],
                   ),
                 ),
+
                 SizedBox(
-                  width: 120,
-                  child: Text(
-                    row.$2,
-                    style: AppTextStyles.text.copyWith(
-                      color: const Color(0xFFF0E2C5),
+                  width: _startColumnWidth,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: item.indent ? _Indent : 0,
+                    ),
+                    child: Text(
+                      item.start,
+                      style: rowStyle,
                     ),
                   ),
                 ),
@@ -957,78 +615,177 @@ class _ScheduleList extends StatelessWidget {
   }
 }
 
-class _ExpandableActionButton extends StatelessWidget {
-  final String title;
-  final bool isExpanded;
-  final VoidCallback onTap;
-  final Color frontColor;
-  final Color borderColor;
-  final Color shadowColor;
-  final Widget child;
+class _ScheduleEntry {
+  final String place;
+  final String start;
+  final String iconAsset;
+  final bool indent;
+  final double iconSize;
 
-  const _ExpandableActionButton({
-    required this.title,
-    required this.isExpanded,
-    required this.onTap,
-    required this.frontColor,
-    required this.borderColor,
-    required this.shadowColor,
-    required this.child,
+  const _ScheduleEntry({
+    required this.place,
+    required this.start,
+    required this.iconAsset,
+    this.indent = false,
+    this.iconSize = 16,
   });
+}
+
+class _TripButtons extends StatelessWidget {
+  const _TripButtons();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: GradientShadowButton(
-            text: title,
-            onTap: onTap,
-            width: MediaQuery.sizeOf(context).width - 60,
+    final buttonTextStyle = AppTextStyles.smallSubtitle.copyWith(
+      color: AppColors.lightsand,
+      height: 1,
+    );
+
+    return Center(
+      child: Column(
+        children: [
+          GradientShadowButton(
+            onTap: () {},
+            width: 160,
             height: 34,
-            frontColor: frontColor,
-            shadowColor: shadowColor,
-            textColor: const Color(0xFFF0E2C5),
-            borderColor: borderColor,
+            frontColor: AppColors.espressobrown,
+            shadowColor: AppColors.vividtangelo,
+            textColor: AppColors.lightsand,
+            borderColor: AppColors.royalorange,
+            heightShadow: 1.16,
+            radiusBordertop: 0.45,
+            radiusBorderbottom: 0.76,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/rodo_happy.svg',
+                    height: 20,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Check Your Trip',
+                    maxLines: 1,
+                    style: buttonTextStyle,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        AnimatedCrossFade(
-          firstChild: const SizedBox.shrink(),
-          secondChild: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: child,
+
+          const SizedBox(height: 8),
+
+          GradientShadowButton(
+            onTap: () {},
+            width: 290,
+            height: 34,
+            frontColor: AppColors.espressobrown,
+            shadowColor: AppColors.vividtangelo,
+            textColor: AppColors.lightsand,
+            borderColor: AppColors.royalorange,
+            heightShadow: 1.16,
+            radiusBordertop: 0.45,
+            radiusBorderbottom: 0.76,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Program a New Route',
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: buttonTextStyle,
+              ),
+            ),
           ),
-          crossFadeState: isExpanded
-              ? CrossFadeState.showSecond
-              : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: 220),
-        ),
-      ],
+
+          const SizedBox(height: 8),
+
+          GradientShadowButton(
+            onTap: () {},
+            width: 290,
+            height: 34,
+            frontColor: AppColors.espressobrown,
+            shadowColor: AppColors.vividtangelo,
+            textColor: AppColors.lightsand,
+            borderColor: AppColors.royalorange,
+            heightShadow: 1.16,
+            radiusBordertop: 0.45,
+            radiusBorderbottom: 0.76,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Program a New Trip',
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: buttonTextStyle,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _PlaceholderExpandedContent extends StatelessWidget {
+class _SectionExpandableButton extends StatelessWidget {
   final String title;
+  final Color frontColor;
+  final Color shadowColor;
+  final Color borderColor;
 
-  const _PlaceholderExpandedContent({required this.title});
+  const _SectionExpandableButton({
+    required this.title,
+    required this.frontColor,
+    required this.shadowColor,
+    required this.borderColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFF201B1D),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFF3A3436)),
-      ),
-      child: Text(
-        '$title overlay / expanded content placeholder',
-        style: AppTextStyles.text.copyWith(color: const Color(0xFFF0E2C5)),
+    final double contentWidth = MediaQuery.sizeOf(context).width - 40;
+
+    return Center(
+      child: ExpandableButton(
+        title: title,
+        closedWidth: contentWidth.clamp(0.0, 370.0).toDouble(),
+        closedHeight: 44,
+        openWidth: contentWidth.clamp(0.0, 390.0).toDouble(),
+        openHeight: 235,
+        frontColor: frontColor,
+        shadowColor: shadowColor,
+        textColor: AppColors.floralwhite,
+        borderColor: borderColor,
+        items: _countryItems,
       ),
     );
   }
+}
+
+final List<ExpandableItem> _countryItems = [
+  _country('Argentina', 'argentina'),
+  _country('Bolivia', 'bolivia'),
+  _country('Brazil', 'brazil'),
+  _country('Chile', 'chile'),
+  _country('Dominican Republic', 'dominicanrepublic'),
+  _country('Ireland', 'ireland'),
+  _country('Mexico', 'mexico'),
+  _country('Morocco', 'morocco'),
+  _country('Panama', 'panama'),
+  _country('Turkiye', 'turkiye'),
+  _country('United States of America', 'usa'),
+  _country('Uruguay', 'uruguay'),
+];
+
+ExpandableItem _country(String label, String flagName) {
+  return ExpandableItem(
+    label: label,
+    trailing: SvgPicture.asset(
+      'assets/flags/$flagName.svg',
+      width: 24,
+      height: 16,
+    ),
+  );
 }
 
 class _TrophiesContent extends StatelessWidget {
@@ -1036,9 +793,13 @@ class _TrophiesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [_TrophySlot(), _TrophySlot(), _TrophySlot()],
+      children: [
+        _TrophySlot(),
+        _TrophySlot(),
+        _TrophySlot(),
+      ],
     );
   }
 }
@@ -1052,12 +813,17 @@ class _TrophySlot extends StatelessWidget {
       width: 56,
       height: 60,
       decoration: BoxDecoration(
-        color: const Color(0xFF2B2B2B),
+        color: AppColors.charcoal,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFF5B5B5B)),
+        border: Border.all(
+          color:AppColors.midnightgrey,
+        ),
       ),
       child: Center(
-        child: SvgPicture.asset('assets/svg/svg_trophy_star.svg', height: 24),
+        child: SvgPicture.asset(
+          'assets/icons/svg_trophy_star.svg',
+          height: 24,
+        ),
       ),
     );
   }
@@ -1090,12 +856,15 @@ class ThinBorderPillButton extends StatelessWidget {
           width: width,
           height: height,
           padding: padding,
-          decoration: BoxDecoration(
-            color: const Color(0xFF282224),
-            borderRadius: BorderRadius.circular(height * 0.7),
-            border: Border.all(color: const Color(0xFFF9A044), width: 1.2),
-          ),
           alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.charcoal,
+            borderRadius: BorderRadius.circular(height * 0.7),
+            border: Border.all(
+              color: AppColors.royalorange,
+              width: 1.2,
+            ),
+          ),
           child: child,
         ),
       ),
@@ -1117,12 +886,15 @@ class _TopDropOverlay extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF201A1C),
+              color: AppColors.charcoal,
               borderRadius: BorderRadius.circular(22),
-              border: Border.all(color: const Color(0xFFF9A044), width: 1.3),
+              border: Border.all(
+                color: AppColors.royalorange,
+                width: 1.3,
+              ),
               boxShadow: const [
                 BoxShadow(
-                  color: Colors.black45,
+                  color: AppColors.charcoal,
                   blurRadius: 16,
                   offset: Offset(0, 8),
                 ),
@@ -1137,20 +909,23 @@ class _TopDropOverlay extends StatelessWidget {
                     Text(
                       'City overlay',
                       style: AppTextStyles.boldText.copyWith(
-                        color: const Color(0xFFF9A044),
+                        color: AppColors.royalorange,
                       ),
                     ),
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close, color: Color(0xFFF0E2C5)),
+                      icon: const Icon(
+                        Icons.close,
+                        color: AppColors.lightsand,
+                      ),
                     ),
                   ],
                 ),
                 Text(
                   'Este panel queda en blanco por ahora, pero ya tiene la caída desde el borde superior y el cierre.',
                   style: AppTextStyles.text.copyWith(
-                    color: const Color(0xFFF0E2C5),
+                    color: AppColors.lightsand,
                   ),
                 ),
               ],
@@ -1160,11 +935,4 @@ class _TopDropOverlay extends StatelessWidget {
       ),
     );
   }
-}
-
-class _TopFilterItem {
-  final String label;
-  final String assetName;
-
-  const _TopFilterItem({required this.label, required this.assetName});
 }

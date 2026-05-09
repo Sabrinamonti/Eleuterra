@@ -196,6 +196,7 @@ class _LearningCard extends StatelessWidget {
       shadowColor: shadowColor,
       textColor: AppColors.floralwhite,
       borderColor: borderColor,
+      
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Row(
