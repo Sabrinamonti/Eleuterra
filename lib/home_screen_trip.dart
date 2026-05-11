@@ -4,7 +4,7 @@ import 'package:eleuterra_app/main_menu.dart';
 import 'package:eleuterra_app/primary_button.dart';
 import 'package:eleuterra_app/theme/app_colors.dart';
 import 'package:eleuterra_app/theme/app_text.dart';
-import 'package:eleuterra_app/top_trip_status_buttons.dart';
+import 'package:eleuterra_app/status_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,10 +37,7 @@ class HomeScreenTrip extends StatelessWidget {
             begin: const Offset(0, -1),
             end: Offset.zero,
           ).animate(curved),
-          child: FadeTransition(
-            opacity: curved,
-            child: child,
-          ),
+          child: FadeTransition(opacity: curved, child: child),
         );
       },
     );
@@ -58,302 +55,342 @@ class HomeScreenTrip extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.charcoal,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TopTripStatusButtons(
-                onCityTap: () => _openCityOverlay(context),
-                onAtlasTap: () {},
-                onCoinsTap: () {},
-                coins: 250,
-              ),
-
-              const SizedBox(height: 14),
-
-              const _SearchBar(),
-
-              const SizedBox(height: 14),
-
-              Center(
-                child: BigButton(
-                  width: mapWidth,
-                  height: mapHeight,
-                  frontColor: AppColors.espressobrown,
-                  shadowColor: AppColors.vividtangelo,
-                  borderColor: AppColors.royalorange,
-                  borderWidth: 5.5,
-                  borderRadius: 28,
-                  shadowOffset: 14,
-                  onTap: () {},
-
-                  // Luego reemplaza esto por tu API de mapa:
-                  // child: GoogleMap(...),
-                  child: const SizedBox.expand(),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              Text(
-                'You have a Route today!',
-                style: AppTextStyles.title.copyWith(
-                  color: AppColors.royalorange,
-                ),
-              ),
-
-              const SizedBox(height: 2),
-
-              Text(
-                'Day 1 Istanbul',
-                style: AppTextStyles.smallSubtitle.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              const _IconTextRow(
-                assetPath: 'assets/icons/clock.svg',
-                text: 'This tour will take you: 6:10 hours approxapproximately.',
-                iconSize: 16,
-              ),
-
-              const SizedBox(height: 6),
-
-              const _IconTextRow(
-                assetPath: 'assets/icons/alarm.svg',
-                text:
-                    'We recommend leaving at 9:00 so you can enjoy your route calmly',
-                iconSize: 16,
-              ),
-
-              const SizedBox(height: 10),
-
-              const Divider(
-                color: AppColors.lightsand,
-                height: 1,
-                thickness: 1,
-              ),
-
-              const SizedBox(height: 10),
-
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: RichText(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
-                        style: AppTextStyles.text.copyWith(
-                        color: AppColors.lightsand,
-                        ),
-                        children: [
-                          const TextSpan(text: 'Your trip is: from '),
-                          TextSpan(
-                            text: 'March 23 to April 12',
-                            style: AppTextStyles.text.copyWith(
-                            color: AppColors.lightsand,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  StatusButtons(
+                    onCityTap: () => _openCityOverlay(context),
+                    onAtlasTap: () {},
+                    onCoinsTap: () {},
+                    coins: 250,
                   ),
 
-                  const SizedBox(width: 12),
+                  const SizedBox(height: 14),
 
-                  Text(
-                    '19 days left!',
-                    textAlign: TextAlign.right,
-                    style: AppTextStyles.text.copyWith(
-                      color: AppColors.royalorange,
-                      fontWeight: FontWeight.w800,
+                  const _SearchBar(),
+
+                  const SizedBox(height: 14),
+
+                  Center(
+                    child: BigButton(
+                      width: mapWidth,
+                      height: mapHeight,
+                      frontColor: AppColors.espressobrown,
+                      shadowColor: AppColors.vividtangelo,
+                      borderColor: AppColors.royalorange,
+                      borderWidth: 5.5,
+                      borderRadius: 28,
+                      shadowOffset: 14,
+                      onTap: () {},
+
+                      // Luego reemplaza esto por tu API de mapa:
+                      // child: GoogleMap(...),
+                      child: const SizedBox.expand(),
                     ),
                   ),
                 ],
               ),
+            ),
 
-              const SizedBox(height: 4),
+            const SizedBox(height: 10),
 
-              Text(
-                'For this tour we recommend you Walk or Bike',
-                style: AppTextStyles.optionsSub.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
+            Expanded(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 18,
+                      bottom: 120,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'You have a Route today!',
+                          style: AppTextStyles.title.copyWith(
+                            color: AppColors.royalorange,
+                          ),
+                        ),
 
-              const SizedBox(height: 1),
+                        const SizedBox(height: 2),
 
-              Text(
-                'By Walk',
-                style: AppTextStyles.textSubtitle.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
+                        Text(
+                          'Day 1 Istanbul',
+                          style: AppTextStyles.smallSubtitle.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 1),
+                        const SizedBox(height: 10),
 
-              Text(
-                "Today's Schedule",
-                style: AppTextStyles.textSmallSubtitle.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
+                        const _IconTextRow(
+                          assetPath: 'assets/icons/clock.svg',
+                          text:
+                              'This tour will take you: 6:10 hours approxapproximately.',
+                          iconSize: 16,
+                        ),
 
-              const SizedBox(height: 8),
+                        const SizedBox(height: 6),
 
-              const _ScheduleList(),
+                        const _IconTextRow(
+                          assetPath: 'assets/icons/alarm.svg',
+                          text:
+                              'We recommend leaving at 9:00 so you can enjoy your route calmly',
+                          iconSize: 16,
+                        ),
 
-              const SizedBox(height: 12),
+                        const SizedBox(height: 10),
 
-              Text(
-                'Health info.',
-                style: AppTextStyles.textSmallSubtitle.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
+                        const Divider(
+                          color: AppColors.lightsand,
+                          height: 1,
+                          thickness: 1,
+                        ),
 
-              const SizedBox(height: 8),
+                        const SizedBox(height: 10),
 
-              const _IconTextRow(
-                assetPath: 'assets/icons/weather.svg',
-                text: 'Weather: 25 °C Mostly Sunny.',
-                iconSize: 12,
-              ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  style: AppTextStyles.text.copyWith(
+                                    color: AppColors.lightsand,
+                                  ),
+                                  children: [
+                                    const TextSpan(text: 'Your trip is: from '),
+                                    TextSpan(
+                                      text: 'March 23 to April 12',
+                                      style: AppTextStyles.text.copyWith(
+                                        color: AppColors.lightsand,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
 
-              const SizedBox(height: 6),
+                            const SizedBox(width: 12),
 
-              const _IconTextRow(
-                assetPath: 'assets/icons/walk.svg',
-                text:
-                    "Approximate steps you will take on today's tour: 16,000 steps!",
-                iconSize: 16,
-              ),
+                            Text(
+                              '19 days left!',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.text.copyWith(
+                                color: AppColors.royalorange,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
+                        ),
 
-              const SizedBox(height: 6),
+                        const SizedBox(height: 4),
 
-              _IconTextRow(
-                assetPath: 'assets/icons/drop.svg',
-                text: "Don’t forget to drink water!",
-                iconSize: 16,
-                textStyle: AppTextStyles.boldText.copyWith(
-                  color: AppColors.lightsand,
-                ),
-              ),
+                        Text(
+                          'For this tour we recommend you Walk or Bike',
+                          style: AppTextStyles.optionsSub.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 18),
+                        const SizedBox(height: 1),
 
-              const _TripButtons(),
+                        Text(
+                          'By Walk',
+                          style: AppTextStyles.textSubtitle.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 18),
+                        const SizedBox(height: 1),
 
-              _SectionExpandableButton(
-                title: 'Finance', 
-                frontColor: AppColors.olivedrab,
-                shadowColor: AppColors.forestgreen,
-                borderColor: AppColors.mossgreen,
-              ),
+                        Text(
+                          "Today's Schedule",
+                          style: AppTextStyles.textSmallSubtitle.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 8),
 
-              _SectionExpandableButton(
-                title: 'Trivia',
-                frontColor: AppColors.mistyblue,
-                shadowColor: AppColors.steelblue,
-                borderColor: AppColors.slateblue,
-              ),
+                        const _ScheduleList(),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 12),
 
-              _SectionExpandableButton(
-                title: 'Notes',
-                frontColor: AppColors.mediumcarmine,
-                shadowColor: AppColors.espressobrown,
-                borderColor: AppColors.earthybrown,
-              ),
+                        Text(
+                          'Health info.',
+                          style: AppTextStyles.textSmallSubtitle.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 18),
+                        const SizedBox(height: 8),
 
-              Text(
-                'Trophies',
-                style: AppTextStyles.textSubtitle.copyWith(
-                  color: AppColors.lightsand,
-                  fontSize: 36,
-                ),
-              ),
+                        const _IconTextRow(
+                          assetPath: 'assets/icons/weather.svg',
+                          text: 'Weather: 25 °C Mostly Sunny.',
+                          iconSize: 12,
+                        ),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 6),
 
-Center(
-                child: BigButton(
-                  width: mapWidth,
-                  height: mapHeight,
-                frontColor: AppColors.espressobrown,
-                shadowColor: const Color(0xFF333333),
-                borderColor: const Color(0xFF4E4D4E),
-                  borderWidth: 5.5,
-                  borderRadius: 28,
-                  shadowOffset: 14,
-                  onTap: () {},
+                        const _IconTextRow(
+                          assetPath: 'assets/icons/walk.svg',
+                          text:
+                              "Approximate steps you will take on today's tour: 16,000 steps!",
+                          iconSize: 16,
+                        ),
 
-                  child: const SizedBox.expand(),
-                ),
-              ),
+                        const SizedBox(height: 6),
 
+                        _IconTextRow(
+                          assetPath: 'assets/icons/drop.svg',
+                          text: "Don’t forget to drink water!",
+                          iconSize: 16,
+                          textStyle: AppTextStyles.boldText.copyWith(
+                            color: AppColors.lightsand,
+                          ),
+                        ),
 
-              const SizedBox(height: 14),
+                        const SizedBox(height: 18),
 
-              Center(
-                child: Text(
-                  'No trophies earned in Istanbul yet!',
-                  style: AppTextStyles.text.copyWith(
-                    color: AppColors.midnightgrey,
-                  ),
-                ),
-              ),
+                        const _TripButtons(),
 
-              const SizedBox(height: 6),
+                        const SizedBox(height: 18),
 
-              Center(
-                child: Text(
-                  'Claim your Annual Gift!',
-                  style: AppTextStyles.boldText.copyWith(
-                    color: AppColors.royalorange,
-                  ),
-                ),
-              ),
+                        _SectionExpandableButton(
+                          title: 'Finance',
+                          frontColor: AppColors.olivedrab,
+                          shadowColor: AppColors.forestgreen,
+                          borderColor: AppColors.mossgreen,
+                        ),
 
-              const SizedBox(height: 8),
+                        const SizedBox(height: 10),
 
-              Center(
-                child: SvgPicture.asset(
-                  'assets/icons/gift.svg',
-                  height: 54,
-                ),
-              ),
+                        _SectionExpandableButton(
+                          title: 'Trivia',
+                          frontColor: AppColors.mistyblue,
+                          shadowColor: AppColors.steelblue,
+                          borderColor: AppColors.slateblue,
+                        ),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
-              Center(
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Terms and Conditions',
-                    style: AppTextStyles.text.copyWith(
-                      color: AppColors.midnightgrey,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.midnightgrey,
+                        _SectionExpandableButton(
+                          title: 'Notes',
+                          frontColor: AppColors.mediumcarmine,
+                          shadowColor: AppColors.espressobrown,
+                          borderColor: AppColors.earthybrown,
+                        ),
+
+                        const SizedBox(height: 18),
+
+                        Text(
+                          'Trophies',
+                          style: AppTextStyles.textSubtitle.copyWith(
+                            color: AppColors.lightsand,
+                            fontSize: 36,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Center(
+                          child: BigButton(
+                            width: mapWidth,
+                            height: mapHeight,
+                            frontColor: AppColors.espressobrown,
+                            shadowColor: const Color(0xFF333333),
+                            borderColor: const Color(0xFF4E4D4E),
+                            borderWidth: 5.5,
+                            borderRadius: 28,
+                            shadowOffset: 14,
+                            onTap: () {},
+                            child: const SizedBox.expand(),
+                          ),
+                        ),
+
+                        const SizedBox(height: 14),
+
+                        Center(
+                          child: Text(
+                            'No trophies earned in Istanbul yet!',
+                            style: AppTextStyles.text.copyWith(
+                              color: AppColors.midnightgrey,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 6),
+
+                        Center(
+                          child: Text(
+                            'Claim your Annual Gift!',
+                            style: AppTextStyles.boldText.copyWith(
+                              color: AppColors.royalorange,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 8),
+
+                        Center(
+                          child: SvgPicture.asset(
+                            'assets/icons/gift.svg',
+                            height: 54,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Text(
+                              'Terms and Conditions',
+                              style: AppTextStyles.text.copyWith(
+                                color: AppColors.midnightgrey,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColors.midnightgrey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ),
 
-              const SizedBox(height: 120),
-            ],
-          ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: IgnorePointer(
+                      child: Container(
+                        height: 28,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              AppColors.charcoal,
+                              AppColors.charcoal.withValues(alpha: 0.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: MainMenu(
@@ -375,16 +412,11 @@ class _SearchBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/icons/glass.svg',
-            height: 12,
-          ),
+          SvgPicture.asset('assets/icons/glass.svg', height: 12),
           const SizedBox(width: 8),
           Text(
             'Search route',
-            style: AppTextStyles.text.copyWith(
-              color: AppColors.midnightgrey,
-            ),
+            style: AppTextStyles.text.copyWith(color: AppColors.midnightgrey),
           ),
         ],
       ),
@@ -409,10 +441,8 @@ class _IconTextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveTextStyle = textStyle ??
-        AppTextStyles.text.copyWith(
-          color: AppColors.lightsand,
-        );
+    final effectiveTextStyle =
+        textStyle ?? AppTextStyles.text.copyWith(color: AppColors.lightsand);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,22 +453,14 @@ class _IconTextRow extends StatelessWidget {
             padding: const EdgeInsets.only(top: 1),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: SvgPicture.asset(
-                assetPath,
-                height: iconSize,
-              ),
+              child: SvgPicture.asset(assetPath, height: iconSize),
             ),
           ),
         ),
 
         const SizedBox(width: 8),
 
-        Expanded(
-          child: Text(
-            text,
-            style: effectiveTextStyle,
-          ),
-        ),
+        Expanded(child: Text(text, style: effectiveTextStyle)),
       ],
     );
   }
@@ -450,8 +472,7 @@ class _ScheduleList extends StatelessWidget {
   static const double _startColumnWidth = 160;
   static const double _iconSlotWidth = 16;
   static const double _iconTextGap = 4;
-  static const double _Indent = 16;
-
+  static const double _indent = 16;
 
   static const List<_ScheduleEntry> _rows = [
     _ScheduleEntry(
@@ -514,9 +535,7 @@ class _ScheduleList extends StatelessWidget {
       color: AppColors.lightsand,
     );
 
-    final rowStyle = AppTextStyles.text.copyWith(
-      color: AppColors.lightsand,
-    );
+    final rowStyle = AppTextStyles.text.copyWith(color: AppColors.lightsand);
 
     return Column(
       children: [
@@ -538,22 +557,14 @@ class _ScheduleList extends StatelessWidget {
 
                   const SizedBox(width: _iconTextGap),
 
-                  Expanded(
-                    child: Text(
-                      'Location',
-                      style: headerStyle,
-                    ),
-                  ),
+                  Expanded(child: Text('Location', style: headerStyle)),
                 ],
               ),
             ),
 
             SizedBox(
               width: _startColumnWidth,
-              child: Text(
-                'Start',
-                style: headerStyle,
-              ),
+              child: Text('Start', style: headerStyle),
             ),
           ],
         ),
@@ -569,7 +580,7 @@ class _ScheduleList extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      if (item.indent) const SizedBox(width: _Indent),
+                      if (item.indent) const SizedBox(width: _indent),
 
                       SizedBox(
                         width: _iconSlotWidth,
@@ -598,13 +609,8 @@ class _ScheduleList extends StatelessWidget {
                 SizedBox(
                   width: _startColumnWidth,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                      left: item.indent ? _Indent : 0,
-                    ),
-                    child: Text(
-                      item.start,
-                      style: rowStyle,
-                    ),
+                    padding: EdgeInsets.only(left: item.indent ? _indent : 0),
+                    child: Text(item.start, style: rowStyle),
                   ),
                 ),
               ],
@@ -660,16 +666,9 @@ class _TripButtons extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/rodo_happy.svg',
-                    height: 20,
-                  ),
+                  SvgPicture.asset('assets/icons/rodo_happy.svg', height: 20),
                   const SizedBox(width: 6),
-                  Text(
-                    'Check Your Trip',
-                    maxLines: 1,
-                    style: buttonTextStyle,
-                  ),
+                  Text('Check Your Trip', maxLines: 1, style: buttonTextStyle),
                 ],
               ),
             ),
@@ -795,11 +794,7 @@ class _TrophiesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _TrophySlot(),
-        _TrophySlot(),
-        _TrophySlot(),
-      ],
+      children: [_TrophySlot(), _TrophySlot(), _TrophySlot()],
     );
   }
 }
@@ -815,15 +810,10 @@ class _TrophySlot extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.charcoal,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color:AppColors.midnightgrey,
-        ),
+        border: Border.all(color: AppColors.midnightgrey),
       ),
       child: Center(
-        child: SvgPicture.asset(
-          'assets/icons/svg_trophy_star.svg',
-          height: 24,
-        ),
+        child: SvgPicture.asset('assets/icons/svg_trophy_star.svg', height: 24),
       ),
     );
   }
@@ -860,10 +850,7 @@ class ThinBorderPillButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.charcoal,
             borderRadius: BorderRadius.circular(height * 0.7),
-            border: Border.all(
-              color: AppColors.royalorange,
-              width: 1.2,
-            ),
+            border: Border.all(color: AppColors.royalorange, width: 1.2),
           ),
           child: child,
         ),
@@ -888,10 +875,7 @@ class _TopDropOverlay extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.charcoal,
               borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: AppColors.royalorange,
-                width: 1.3,
-              ),
+              border: Border.all(color: AppColors.royalorange, width: 1.3),
               boxShadow: const [
                 BoxShadow(
                   color: AppColors.charcoal,
@@ -915,10 +899,7 @@ class _TopDropOverlay extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.close,
-                        color: AppColors.lightsand,
-                      ),
+                      icon: const Icon(Icons.close, color: AppColors.lightsand),
                     ),
                   ],
                 ),

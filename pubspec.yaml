@@ -104,6 +104,14 @@ flutter:
     - assets/icons/weather.svg
     - assets/icons/glass.svg
     - assets/menu_icons/more.svg
+    - assets/menu_icons/more-white.svg
+    - assets/menu_icons/home-white.svg
+    - assets/menu_icons/notifications-white.svg
+    - assets/menu_icons/profile-white.svg
+    - assets/menu_icons/trivia-white.svg
+    - assets/menu_icons/world-white.svg
+    - assets/menu_icons/plus.svg
+    - assets/menu_icons/settings.svg
 
     
 

@@ -7,21 +7,20 @@ class AppTextStyles {
   static const bigTitle = TextStyle(
     fontFamily: 'Eleuth-Regular',
     fontSize: 54,
-    fontWeight: FontWeight.w800,
-    letterSpacing: 1,
+    wordSpacing: 1,
+    letterSpacing: 0.2,
   );
 
   static const title = TextStyle(
     fontFamily: 'Eleuth-Regular',
-    fontSize: 32,
-    fontWeight: FontWeight.w800,
-    letterSpacing: 1,
+    fontSize: 34,
+    wordSpacing: -2,
+    letterSpacing: 0.2,
   );
 
   static const smallTitle = TextStyle(
     fontFamily: 'Eleuth-Regular',
     fontSize: 24,
-    fontWeight: FontWeight.w800,
     letterSpacing: 1,
   );
 

@@ -3,7 +3,7 @@ import 'package:eleuterra_app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class TopTripStatusButtons extends StatelessWidget {
+class StatusButtons extends StatelessWidget {
   final VoidCallback onCityTap;
   final VoidCallback? onAtlasTap;
   final VoidCallback? onCoinsTap;
@@ -18,7 +18,7 @@ class TopTripStatusButtons extends StatelessWidget {
   final Color textColor;
   final double height;
 
-  const TopTripStatusButtons({
+  const StatusButtons({
     super.key,
     required this.onCityTap,
     this.onAtlasTap,
